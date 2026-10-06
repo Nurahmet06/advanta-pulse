@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ADVANTA Pulse — Staff</title>
+
+
+    <!-- Bootstrap -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- Bootstrap Icons -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+
+    <!-- Наш CSS -->
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+
+<body class="student-page">
+
+
+<div class="student-layout">
+
+
+    <!-- ===================================== -->
+    <!-- SIDEBAR                               -->
+    <!-- ===================================== -->
+
+    <aside class="student-sidebar">
+
+
+        <!-- LOGO -->
+
+        <div class="student-logo">
+
+            ADVANTA <span>Pulse</span>
+
+        </div>
+
+
+
+        <!-- MENU -->
+
+        <nav class="student-nav">
+
+
+            <!-- HOME -->
+
+            <a
+                href="staff-home.html"
+                class="student-nav-link active"
+            >
+
+                <i class="bi bi-house"></i>
+
+                <span data-i18n="staffHome">
+                    Главная
+                </span>
+
+            </a>
+
+
+
+            <!-- MY TESTS -->
+
+            <a
+                href="staff-tests.html"
+                class="student-nav-link"
+            >
+
+                <i class="bi bi-clipboard-check"></i>
+
+                <span data-i18n="myTests">
+                    Мои тесты
+                </span>
+
+            </a>
+
+
+
+            <!-- CREATE TEST -->
+
+            <a
+                href="create-test.html"
+                class="student-nav-link"
+            >
+
+                <i class="bi bi-plus-circle"></i>
+
+                <span data-i18n="createTest">
+                    Создать тест
+                </span>
+
+            </a>
+
+
+
+            <!-- CLASSES -->
+
+            <a
+                href="staff-classes.html"
+                class="student-nav-link"
+            >
+
+                <i class="bi bi-people"></i>
+
+                <span data-i18n="classes">
+                    Классы
+                </span>
+
+            </a>
+
+
+
+            <!-- RESULTS -->
+
+            <a
+                href="staff-results.html"
+                class="student-nav-link"
+            >
+
+                <i class="bi bi-bar-chart"></i>
+
+                <span data-i18n="studentResults">
+                    Результаты учеников
+                </span>
+
+            </a>
+
+
+
+            <!-- ANALYTICS -->
+
+            <a
+                href="staff-analytics.html"
+                class="student-nav-link"
+            >
+
+                <i class="bi bi-graph-up-arrow"></i>
+
+                <span data-i18n="analytics">
+                    Аналитика
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+
+        <!-- LOGOUT -->
+
+        <a
+            href="index.html"
+            class="student-nav-link logout-link"
+        >
+
+            <i class="bi bi-box-arrow-left"></i>
+
+            <span data-i18n="logout">
+                Выйти
+            </span>
+
+        </a>
+
+
+    </aside>
+
+
+
+    <!-- ===================================== -->
+    <!-- MAIN                                  -->
+    <!-- ===================================== -->
+
+    <main class="student-main">
+
+
+        <!-- HEADER -->
+
+        <div class="student-header">
+
+
+            <div>
+
+                <p
+                    class="student-welcome"
+                    data-i18n="staffWelcome"
+                >
+                    Добро пожаловать
+                </p>
+
+
+                <h2 class="fw-bold mb-1">
+
+                    Айгуль Сериковна
+
+                </h2>
+
+
+                <p
+                    class="text-secondary mb-0"
+                    data-i18n="teacher"
+                >
+                    Учитель
+                </p>
+
+            </div>
+
+
+
+            <!-- LANGUAGE + PROFILE -->
+
+            <div class="d-flex align-items-center gap-3">
+
+
+                <select
+                    id="languageSelect"
+                    class="form-select language-select"
+                >
+
+                    <option value="ru">
+                        RU
+                    </option>
+
+                    <option value="kz">
+                        KZ
+                    </option>
+
+                    <option value="en">
+                        EN
+                    </option>
+
+                </select>
+
+
+                <div class="student-avatar">
+
+                    <i class="bi bi-person"></i>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ===================================== -->
+        <!-- PAGE TITLE                            -->
+        <!-- ===================================== -->
+
+        <div class="mb-4">
+
+            <h3
+                class="fw-bold mb-1"
+                data-i18n="staffHome"
+            >
+                Главная
+            </h3>
+
+        </div>
+
+
+
+        <!-- ===================================== -->
+        <!-- OVERVIEW CARDS                        -->
+        <!-- ===================================== -->
+
+        <div class="row g-4">
+
+
+            <!-- TESTS CREATED -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="overview-card">
+
+
+                    <div class="overview-icon">
+
+                        <i class="bi bi-file-earmark-text"></i>
+
+                    </div>
+
+
+                    <p data-i18n="testsCreated">
+
+                        Создано тестов
+
+                    </p>
+
+
+                    <h2>
+                        12
+                    </h2>
+
+
+                    <a
+                        href="staff-tests.html"
+                        data-i18n="view"
+                    >
+                        Посмотреть
+                    </a>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ACTIVE TESTS -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="overview-card">
+
+
+                    <div class="overview-icon">
+
+                        <i class="bi bi-clock-history"></i>
+
+                    </div>
+
+
+                    <p data-i18n="activeTests">
+
+                        Активные тесты
+
+                    </p>
+
+
+                    <h2>
+                        3
+                    </h2>
+
+
+                    <a
+                        href="staff-tests.html"
+                        data-i18n="view"
+                    >
+                        Посмотреть
+                    </a>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- STUDENTS -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="overview-card">
+
+
+                    <div class="overview-icon">
+
+                        <i class="bi bi-people"></i>
+
+                    </div>
+
+
+                    <p data-i18n="students">
+
+                        Ученики
+
+                    </p>
+
+
+                    <h2>
+                        74
+                    </h2>
+
+
+                    <a
+                        href="staff-classes.html"
+                        data-i18n="view"
+                    >
+                        Посмотреть
+                    </a>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- AVERAGE -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="overview-card">
+
+
+                    <div class="overview-icon">
+
+                        <i class="bi bi-graph-up"></i>
+
+                    </div>
+
+
+                    <p data-i18n="classAverage">
+
+                        Средний результат
+
+                    </p>
+
+
+                    <h2>
+                        76/100
+                    </h2>
+
+
+                    <a
+                        href="staff-analytics.html"
+                        data-i18n="analytics"
+                    >
+                        Аналитика
+                    </a>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ===================================== -->
+        <!-- QUICK CREATE                          -->
+        <!-- ===================================== -->
+
+        <div class="content-card mt-4">
+
+
+            <div
+                class="d-flex justify-content-between align-items-center"
+            >
+
+
+                <div>
+
+
+                    <h4
+                        class="fw-bold mb-2"
+                        data-i18n="createTest"
+                    >
+                        Создать тест
+                    </h4>
+
+
+                    <p class="text-secondary mb-0">
+
+                        Математика • 5А • 5Б
+
+                    </p>
+
+
+                </div>
+
+
+                <a
+                    href="create-test.html"
+                    class="btn btn-primary"
+                >
+
+                    <i class="bi bi-plus-lg me-1"></i>
+
+                    <span data-i18n="createTest">
+                        Создать тест
+                    </span>
+
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ===================================== -->
+        <!-- RECENT TESTS                          -->
+        <!-- ===================================== -->
+
+        <div class="content-card mt-4">
+
+
+            <!-- TITLE -->
+
+            <div
+                class="d-flex justify-content-between align-items-center mb-4"
+            >
+
+
+                <h4
+                    class="fw-bold mb-0"
+                    data-i18n="recentTests"
+                >
+                    Последние тесты
+                </h4>
+
+
+                <a
+                    href="staff-tests.html"
+                    class="text-decoration-none"
+                    data-i18n="allResults"
+                >
+                    Все результаты
+                </a>
+
+
+            </div>
+
+
+
+            <!-- TABLE -->
+
+            <div class="table-responsive">
+
+
+                <table
+                    class="table align-middle"
+                >
+
+
+                    <thead>
+
+
+                    <tr>
+
+
+                        <th data-i18n="testName">
+                            Название теста
+                        </th>
+
+
+                        <th data-i18n="subject">
+                            Предмет
+                        </th>
+
+
+                        <th data-i18n="class">
+                            Класс
+                        </th>
+
+
+                        <th data-i18n="deadline">
+                            Дедлайн
+                        </th>
+
+
+                        <th data-i18n="classAverage">
+                            Средний результат
+                        </th>
+
+
+                        <th data-i18n="status">
+                            Статус
+                        </th>
+
+
+                        <th data-i18n="actions">
+                            Действия
+                        </th>
+
+
+                    </tr>
+
+
+                    </thead>
+
+
+
+                    <tbody>
+
+
+                    <!-- TEST 1 -->
+
+                    <tr>
+
+
+                        <td>
+
+                            <strong data-i18n="fractions">
+
+                                Обыкновенные дроби
+
+                            </strong>
+
+                        </td>
+
+
+                        <td data-i18n="math">
+
+                            Математика
+
+                        </td>
+
+
+                        <td>
+
+                            5А
+
+                        </td>
+
+
+                        <td>
+
+                            10.10.2026
+
+                        </td>
+
+
+                        <td>
+
+                            78/100
+
+                        </td>
+
+
+                        <td>
+
+                            <span
+                                class="badge text-bg-primary"
+                                data-i18n="published"
+                            >
+                                Назначен
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <a
+                                href="staff-results.html"
+                                class="btn btn-sm btn-outline-primary"
+                                data-i18n="open"
+                            >
+                                Открыть
+                            </a>
+
+                        </td>
+
+
+                    </tr>
+
+
+
+                    <!-- TEST 2 -->
+
+                    <tr>
+
+
+                        <td>
+
+                            <strong data-i18n="linearEquations">
+
+                                Линейные уравнения
+
+                            </strong>
+
+                        </td>
+
+
+                        <td data-i18n="math">
+
+                            Математика
+
+                        </td>
+
+
+                        <td>
+
+                            6Б
+
+                        </td>
+
+
+                        <td>
+
+                            08.10.2026
+
+                        </td>
+
+
+                        <td>
+
+                            84/100
+
+                        </td>
+
+
+                        <td>
+
+                            <span
+                                class="badge text-bg-success"
+                                data-i18n="finished"
+                            >
+                                Завершён
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <a
+                                href="staff-results.html"
+                                class="btn btn-sm btn-outline-primary"
+                                data-i18n="open"
+                            >
+                                Открыть
+                            </a>
+
+                        </td>
+
+
+                    </tr>
+
+
+
+                    <!-- TEST 3 -->
+
+                    <tr>
+
+
+                        <td>
+
+                            <strong data-i18n="percentages">
+
+                                Проценты
+
+                            </strong>
+
+                        </td>
+
+
+                        <td data-i18n="math">
+
+                            Математика
+
+                        </td>
+
+
+                        <td>
+
+                            5Б
+
+                        </td>
+
+
+                        <td>
+
+                            —
+
+                        </td>
+
+
+                        <td>
+
+                            —
+
+                        </td>
+
+
+                        <td>
+
+                            <span
+                                class="badge text-bg-secondary"
+                                data-i18n="draft"
+                            >
+                                Черновик
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <a
+                                href="create-test.html"
+                                class="btn btn-sm btn-outline-primary"
+                                data-i18n="open"
+                            >
+                                Открыть
+                            </a>
+
+                        </td>
+
+
+                    </tr>
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+
+<!-- ===================================== -->
+<!-- LANGUAGE                              -->
+<!-- ===================================== -->
+
+<script src="js/language.js"></script>
+
+
+</body>
+
+</html>

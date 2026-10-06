@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ADVANTA Pulse — Student</title>
+
+
+    <!-- Bootstrap -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- Bootstrap Icons -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+
+    <!-- CSS -->
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+
+<body class="student-page">
+
+<div class="student-layout">
+
+
+    <!-- ================================================= -->
+    <!-- SIDEBAR                                           -->
+    <!-- ================================================= -->
+
+    <aside class="student-sidebar">
+
+
+        <div class="student-logo">
+
+            ADVANTA <span>Pulse</span>
+
+        </div>
+
+
+        <nav class="student-nav">
+
+
+            <!-- HOME -->
+
+            <a
+                href="student-home.html"
+                class="student-nav-link active"
+            >
+
+                <i class="bi bi-house"></i>
+
+                <span data-i18n="home">
+
+                    Главная
+
+                </span>
+
+            </a>
+
+
+
+            <!-- TASKS -->
+
+            <a
+                href="student-tasks.html"
+                class="student-nav-link"
+            >
+
+                <i class="bi bi-clipboard-check"></i>
+
+                <span data-i18n="tasks">
+
+                    Задания
+
+                </span>
+
+            </a>
+
+
+
+            <!-- RESULTS -->
+
+            <a
+                href="student-results.html"
+                class="student-nav-link"
+            >
+
+                <i class="bi bi-bar-chart"></i>
+
+                <span data-i18n="results">
+
+                    Мои результаты
+
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+
+        <!-- LOGOUT -->
+
+        <a
+            href="index.html"
+            class="student-nav-link logout-link"
+        >
+
+            <i class="bi bi-box-arrow-left"></i>
+
+            <span data-i18n="logout">
+
+                Выйти
+
+            </span>
+
+        </a>
+
+
+    </aside>
+
+
+
+    <!-- ================================================= -->
+    <!-- MAIN                                              -->
+    <!-- ================================================= -->
+
+    <main class="student-main">
+
+
+        <!-- ================================================= -->
+        <!-- HEADER                                            -->
+        <!-- ================================================= -->
+
+        <div class="student-header">
+
+
+            <div>
+
+
+                <p
+                    class="student-welcome"
+                    data-i18n="welcome"
+                >
+
+                    Добро пожаловать
+
+                </p>
+
+
+
+                <!-- REAL STUDENT NAME -->
+
+                <h2
+                    id="studentHomeName"
+                    class="fw-bold mb-1"
+                >
+
+                    Ученик
+
+                </h2>
+
+
+
+                <!-- REAL CLASS -->
+
+                <p
+                    id="studentHomeClass"
+                    class="text-secondary mb-0"
+                >
+
+                    5А класс
+
+                </p>
+
+
+            </div>
+
+
+
+            <!-- LANGUAGE + PROFILE -->
+
+            <div
+                class="d-flex align-items-center gap-3"
+            >
+
+
+                <select
+                    id="languageSelect"
+                    class="form-select language-select"
+                >
+
+                    <option value="ru">
+                        RU
+                    </option>
+
+                    <option value="kz">
+                        KZ
+                    </option>
+
+                    <option value="en">
+                        EN
+                    </option>
+
+                </select>
+
+
+                <div class="student-avatar">
+
+                    <i class="bi bi-person"></i>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ================================================= -->
+        <!-- PAGE TITLE                                        -->
+        <!-- ================================================= -->
+
+        <h3
+            class="mb-4 fw-bold"
+            data-i18n="home"
+        >
+
+            Главная
+
+        </h3>
+
+
+
+        <!-- ================================================= -->
+        <!-- SUMMARY CARDS                                     -->
+        <!-- ================================================= -->
+
+        <div class="row g-4">
+
+
+            <!-- ACTIVE TASKS -->
+
+            <div class="col-md-4">
+
+                <div class="overview-card">
+
+
+                    <div class="overview-icon">
+
+                        <i class="bi bi-clipboard-check"></i>
+
+                    </div>
+
+
+                    <p data-i18n="activeTasks">
+
+                        Активные задания
+
+                    </p>
+
+
+                    <!-- REAL VALUE -->
+
+                    <h2 id="homeActiveTasks">
+
+                        0
+
+                    </h2>
+
+
+                    <a
+                        href="student-tasks.html"
+                        data-i18n="goToTasks"
+                    >
+
+                        Перейти к заданиям
+
+                    </a>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- AVERAGE RESULT -->
+
+            <div class="col-md-4">
+
+                <div class="overview-card">
+
+
+                    <div class="overview-icon">
+
+                        <i class="bi bi-graph-up"></i>
+
+                    </div>
+
+
+                    <p data-i18n="averageResult">
+
+                        Средний результат
+
+                    </p>
+
+
+                    <!-- REAL VALUE -->
+
+                    <h2 id="homeAverageScore">
+
+                        0/100
+
+                    </h2>
+
+
+                    <a
+                        href="student-results.html"
+                        data-i18n="allResults"
+                    >
+
+                        Все результаты
+
+                    </a>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- BEST RESULT -->
+
+            <div class="col-md-4">
+
+                <div class="overview-card">
+
+
+                    <div class="overview-icon">
+
+                        <i class="bi bi-trophy"></i>
+
+                    </div>
+
+
+                    <p data-i18n="bestResult">
+
+                        Лучший результат
+
+                    </p>
+
+
+                    <!-- REAL VALUE -->
+
+                    <h2 id="homeBestScore">
+
+                        0/100
+
+                    </h2>
+
+
+                    <a
+                        href="student-results.html"
+                        data-i18n="view"
+                    >
+
+                        Посмотреть
+
+                    </a>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ================================================= -->
+        <!-- UPCOMING TEST                                     -->
+        <!-- ================================================= -->
+
+        <div
+            id="homeUpcomingSection"
+            class="content-card mt-4"
+        >
+
+
+            <!-- JS заполнит содержимое -->
+
+            <div id="homeUpcomingContent">
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ================================================= -->
+        <!-- LAST RESULT                                       -->
+        <!-- ================================================= -->
+
+        <div
+            id="homeLastResultSection"
+            class="content-card mt-4"
+        >
+
+
+            <!-- JS заполнит содержимое -->
+
+            <div id="homeLastResultContent">
+
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- ===================================================== -->
+<!-- LANGUAGE                                              -->
+<!-- ===================================================== -->
+
+<script src="js/language.js"></script>
+
+
+
+<!-- ===================================================== -->
+<!-- REAL HOME DATA                                       -->
+<!-- ===================================================== -->
+
+<script src="js/student-home.js"></script>
+
+
+</body>
+
+</html>
