@@ -1,29 +1,111 @@
 /* =========================================================
    ADVANTA PULSE
-   REAL STUDENT RESULTS
+   STUDENT RESULTS
    ========================================================= */
 
 
 /* =========================================================
-   ТЕКУЩИЙ УЧЕНИК
+   STORAGE
    ========================================================= */
 
-const registeredStudent =
-    JSON.parse(
-        localStorage.getItem(
-            "registeredStudent"
+function getStorageArray(key) {
+
+    try {
+
+        const data =
+            JSON.parse(
+                localStorage.getItem(key)
+            );
+
+        return Array.isArray(data)
+            ? data
+            : [];
+
+    } catch (error) {
+
+        return [];
+    }
+}
+
+
+function getStorageObject(key) {
+
+    try {
+
+        const data =
+            JSON.parse(
+                localStorage.getItem(key)
+            );
+
+        return (
+            data &&
+            typeof data === "object"
         )
-    );
+            ? data
+            : null;
+
+    } catch (error) {
+
+        return null;
+    }
+}
 
 
-const currentStudentFirstName =
-    registeredStudent?.firstName
-    || "Ученик";
+/* =========================================================
+   CURRENT STUDENT
+   ========================================================= */
+
+function getCurrentStudent() {
+
+    const student =
+        getStorageObject(
+            "advantaCurrentStudent"
+        );
 
 
-const currentStudentLastName =
-    registeredStudent?.lastName
-    || "";
+    if (
+        student &&
+        student.role === "student"
+    ) {
+
+        return student;
+    }
+
+
+    const user =
+        getStorageObject(
+            "advantaCurrentUser"
+        );
+
+
+    if (
+        user &&
+        user.role === "student"
+    ) {
+
+        return user;
+    }
+
+
+    return null;
+}
+
+
+const currentStudent =
+    getCurrentStudent();
+
+
+/* =========================================================
+   ACCESS
+   ========================================================= */
+
+if (
+    !currentStudent
+) {
+
+    window.location.href =
+        "index.html";
+}
 
 
 /* =========================================================
@@ -36,55 +118,416 @@ const resultsList =
     );
 
 
-/*
-   На странице у нас три карточки сверху:
+const averageResultValue =
+    document.getElementById(
+        "averageResultValue"
+    );
 
-   1. Средний результат
-   2. Лучший результат
-   3. Завершено срезов
-*/
 
-const summaryValues =
-    document.querySelectorAll(
-        ".overview-card h2"
+const bestResultValue =
+    document.getElementById(
+        "bestResultValue"
+    );
+
+
+const completedTestsValue =
+    document.getElementById(
+        "completedTestsValue"
     );
 
 
 /* =========================================================
-   ЦВЕТ КРУГА
+   LANGUAGE
    ========================================================= */
 
-function getScoreClass(score) {
+function getLanguage() {
 
-    if (score <= 50) {
+    if (
+        typeof getCurrentLanguage === "function"
+    ) {
 
-        return "score-red";
+        return getCurrentLanguage();
     }
 
 
-    if (score <= 69) {
-
-        return "score-yellow";
-    }
-
-
-    if (score <= 89) {
-
-        return "score-blue";
-    }
+    return (
+        localStorage.getItem("language")
+        ||
+        "ru"
+    );
+}
 
 
-    return "score-green";
+function uiText(key) {
+
+    const language =
+        getLanguage();
+
+
+    const texts = {
+
+        ru: {
+
+            noResults:
+                "Результатов пока нет",
+
+            noResultsText:
+                "После прохождения первого теста результат появится здесь.",
+
+            threshold:
+                "Порог",
+
+            passed:
+                "Пройден",
+
+            failed:
+                "Не пройден",
+
+            mathematics:
+                "Математика",
+
+            class:
+                "класс"
+
+        },
+
+
+        kz: {
+
+            noResults:
+                "Нәтижелер әзірге жоқ",
+
+            noResultsText:
+                "Алғашқы тестті аяқтағаннан кейін нәтиже осында шығады.",
+
+            threshold:
+                "Шекті балл",
+
+            passed:
+                "Өтті",
+
+            failed:
+                "Өтпеді",
+
+            mathematics:
+                "Математика",
+
+            class:
+                "сынып"
+
+        },
+
+
+        en: {
+
+            noResults:
+                "No results yet",
+
+            noResultsText:
+                "Your result will appear here after you complete your first test.",
+
+            threshold:
+                "Passing score",
+
+            passed:
+                "Passed",
+
+            failed:
+                "Not passed",
+
+            mathematics:
+                "Mathematics",
+
+            class:
+                "class"
+        }
+    };
+
+
+    return (
+        texts[language]?.[key]
+        ||
+        texts.ru[key]
+        ||
+        key
+    );
 }
 
 
 /* =========================================================
-   ДАТА
+   HEADER
+   ========================================================= */
+
+function renderStudentInfo() {
+
+    if (
+        !currentStudent
+    ) {
+
+        return;
+    }
+
+
+    const fullName = [
+
+        currentStudent.firstName,
+
+        currentStudent.lastName
+
+    ]
+        .filter(Boolean)
+        .join(" ")
+        .trim();
+
+
+    document.getElementById(
+        "studentName"
+    ).textContent =
+        fullName || "—";
+
+
+    document.getElementById(
+        "studentClass"
+    ).textContent =
+        currentStudent.className
+            ? `${currentStudent.className} ${uiText("class")}`
+            : "—";
+}
+
+
+/* =========================================================
+   SCORE
+   ========================================================= */
+
+function getScore(result) {
+
+    const values = [
+
+        result.score,
+
+        result.percentage,
+
+        result.percent,
+
+        result.result
+
+    ];
+
+
+    for (
+        const value of values
+    ) {
+
+        const number =
+            Number(value);
+
+
+        if (
+            Number.isFinite(number)
+        ) {
+
+            return number;
+        }
+    }
+
+
+    return null;
+}
+
+
+/* =========================================================
+   RESULT OWNER
+   ========================================================= */
+
+function resultBelongsToCurrentStudent(
+    result
+) {
+
+    if (
+        !result ||
+        !currentStudent
+    ) {
+
+        return false;
+    }
+
+
+    /*
+      НОВЫЙ И ПРАВИЛЬНЫЙ СПОСОБ:
+      по уникальному ID ученика.
+    */
+
+    if (
+        result.studentId
+    ) {
+
+        return (
+            String(result.studentId) ===
+            String(currentStudent.id)
+        );
+    }
+
+
+    /*
+      Поддержка возможного старого поля userId.
+    */
+
+    if (
+        result.userId
+    ) {
+
+        return (
+            String(result.userId) ===
+            String(currentStudent.id)
+        );
+    }
+
+
+    /*
+      Старые результаты без studentId
+      специально НЕ подключаем по имени.
+
+      Иначе новый ученик может увидеть
+      старые или чужие демонстрационные данные.
+    */
+
+    return false;
+}
+
+
+/* =========================================================
+   RESULTS
+   ========================================================= */
+
+function getCurrentStudentResults() {
+
+    const possibleKeys = [
+
+        "advantaResults",
+
+        "advantaTestResults",
+
+        "studentResults"
+
+    ];
+
+
+    const allResults =
+        [];
+
+
+    possibleKeys.forEach(
+        key => {
+
+            const results =
+                getStorageArray(key);
+
+
+            results.forEach(
+                result => {
+
+                    if (
+                        resultBelongsToCurrentStudent(
+                            result
+                        )
+                    ) {
+
+                        /*
+                          Защита от дублирования,
+                          если один результат вдруг
+                          оказался в двух старых хранилищах.
+                        */
+
+                        const duplicate =
+                            allResults.some(
+                                existing => {
+
+                                    if (
+                                        existing.id &&
+                                        result.id
+                                    ) {
+
+                                        return (
+                                            String(existing.id) ===
+                                            String(result.id)
+                                        );
+                                    }
+
+
+                                    return false;
+                                }
+                            );
+
+
+                        if (
+                            !duplicate
+                        ) {
+
+                            allResults.push(
+                                result
+                            );
+                        }
+                    }
+                }
+            );
+        }
+    );
+
+
+    return allResults;
+}
+
+
+/* =========================================================
+   SCORE COLOR
+   ========================================================= */
+
+function getScoreColor(score) {
+
+    if (score < 50) {
+        return "#dc3545";
+    }
+
+    if (score < 70) {
+        return "#d39e00";
+    }
+
+    if (score < 90) {
+        return "#0d6efd";
+    }
+
+    return "#198754";
+}
+
+
+function getScoreBackground(score) {
+
+    if (score < 50) {
+        return "rgba(220, 53, 69, 0.08)";
+    }
+
+    if (score < 70) {
+        return "rgba(211, 158, 0, 0.08)";
+    }
+
+    if (score < 90) {
+        return "rgba(13, 110, 253, 0.08)";
+    }
+
+    return "rgba(25, 135, 84, 0.08)";
+}
+
+
+/* =========================================================
+   DATE
    ========================================================= */
 
 function formatResultDate(value) {
 
-    if (!value) {
+    if (
+        !value
+    ) {
+
         return "—";
     }
 
@@ -103,23 +546,18 @@ function formatResultDate(value) {
     }
 
 
-    const day =
-        String(
-            date.getDate()
-        ).padStart(2, "0");
-
-
-    const month =
-        String(
-            date.getMonth() + 1
-        ).padStart(2, "0");
-
-
-    const year =
-        date.getFullYear();
-
-
-    return `${day}.${month}.${year}`;
+    return date.toLocaleDateString(
+        getLanguage() === "kz"
+            ? "kk-KZ"
+            : getLanguage() === "en"
+                ? "en-US"
+                : "ru-RU",
+        {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
+        }
+    );
 }
 
 
@@ -136,7 +574,9 @@ function escapeResultText(value) {
 
 
     div.textContent =
-        String(value ?? "");
+        String(
+            value ?? ""
+        );
 
 
     return div.innerHTML;
@@ -144,37 +584,52 @@ function escapeResultText(value) {
 
 
 /* =========================================================
-   ПОЛУЧИТЬ РЕЗУЛЬТАТЫ ЭТОГО УЧЕНИКА
+   SUBJECT
    ========================================================= */
 
-function getCurrentStudentResults() {
+function getSubjectName(result) {
 
-    const allResults =
-        JSON.parse(
-            localStorage.getItem(
-                "advantaResults"
-            )
-        ) || [];
+    const subject =
+        result.subject
+        ||
+        result.subjectId;
 
 
-    return allResults.filter(
-        function (result) {
+    if (
+        subject === "math"
+    ) {
 
-            return (
+        return uiText(
+            "mathematics"
+        );
+    }
 
-                result.studentFirstName
-                ===
-                currentStudentFirstName
 
-                &&
+    if (
+        subject &&
+        typeof t === "function"
+    ) {
 
-                result.studentLastName
-                ===
-                currentStudentLastName
+        const translated =
+            t(subject);
 
-            );
 
+        if (
+            translated &&
+            translated !== subject
+        ) {
+
+            return translated;
         }
+    }
+
+
+    return (
+        result.subjectName
+        ||
+        subject
+        ||
+        uiText("mathematics")
     );
 }
 
@@ -185,131 +640,74 @@ function getCurrentStudentResults() {
 
 function renderSummary(results) {
 
+    const scores =
+        results
+            .map(getScore)
+            .filter(
+                score =>
+                    score !== null
+            );
+
+
     if (
-        results.length === 0
+        scores.length === 0
     ) {
 
-        if (summaryValues[0]) {
-            summaryValues[0].textContent =
-                "0/100";
-        }
+        averageResultValue.textContent =
+            "—";
 
 
-        if (summaryValues[1]) {
-            summaryValues[1].textContent =
-                "0/100";
-        }
+        bestResultValue.textContent =
+            "—";
 
 
-        if (summaryValues[2]) {
-            summaryValues[2].textContent =
-                "0";
-        }
+        completedTestsValue.textContent =
+            "0";
 
 
         return;
     }
 
 
-    /* AVERAGE */
-
     const total =
-        results.reduce(
-            function (sum, result) {
-
-                return (
-                    sum
-                    +
-                    Number(result.score || 0)
-                );
-
-            },
+        scores.reduce(
+            (sum, score) =>
+                sum + score,
             0
         );
 
 
     const average =
         Math.round(
-            total
-            /
-            results.length
+            total /
+            scores.length
         );
 
-
-    /* BEST */
 
     const best =
         Math.max(
-            ...results.map(
-                result =>
-                    Number(
-                        result.score || 0
-                    )
-            )
+            ...scores
         );
 
 
-    if (summaryValues[0]) {
-
-        summaryValues[0].textContent =
-            `${average}/100`;
-    }
+    averageResultValue.textContent =
+        `${average}/100`;
 
 
-    if (summaryValues[1]) {
-
-        summaryValues[1].textContent =
-            `${best}/100`;
-    }
+    bestResultValue.textContent =
+        `${Math.round(best)}/100`;
 
 
-    if (summaryValues[2]) {
-
-        summaryValues[2].textContent =
-            results.length;
-    }
+    completedTestsValue.textContent =
+        results.length;
 }
 
 
 /* =========================================================
-   EMPTY STATE
+   EMPTY
    ========================================================= */
 
 function renderEmptyResults() {
-
-    const language =
-        getCurrentLanguage();
-
-
-    let title =
-        "Результатов пока нет";
-
-
-    let text =
-        "Пройдите первый тест";
-
-
-    if (language === "kz") {
-
-        title =
-            "Нәтижелер әзірге жоқ";
-
-        text =
-            "Алғашқы тестті өтіңіз";
-    }
-
-
-    else if (
-        language === "en"
-    ) {
-
-        title =
-            "No results yet";
-
-        text =
-            "Complete your first test";
-    }
-
 
     resultsList.innerHTML = `
 
@@ -325,16 +723,22 @@ function renderEmptyResults() {
                 "
             ></i>
 
+
             <h5
                 class="fw-bold mt-3"
             >
-                ${title}
+                ${escapeResultText(
+                    uiText("noResults")
+                )}
             </h5>
+
 
             <p
                 class="text-secondary mb-0"
             >
-                ${text}
+                ${escapeResultText(
+                    uiText("noResultsText")
+                )}
             </p>
 
         </div>
@@ -348,24 +752,26 @@ function renderEmptyResults() {
 
 function renderResults() {
 
+    if (
+        !currentStudent
+    ) {
+
+        return;
+    }
+
+
     const results =
         getCurrentStudentResults();
 
-
-    /* SUMMARY */
 
     renderSummary(
         results
     );
 
 
-    /* CLEAR */
-
     resultsList.innerHTML =
         "";
 
-
-    /* EMPTY */
 
     if (
         results.length === 0
@@ -377,30 +783,64 @@ function renderResults() {
     }
 
 
-    /*
-       Новые результаты сверху.
-    */
-
     const sortedResults =
-        [...results].sort(
-            function (a, b) {
+        [...results]
+            .sort(
+                (a, b) => {
 
-                return (
-                    new Date(
-                        b.completedAt
-                    )
-                    -
-                    new Date(
-                        a.completedAt
-                    )
-                );
+                    const dateA =
+                        new Date(
+                            a.completedAt
+                            ||
+                            a.createdAt
+                            ||
+                            0
+                        ).getTime();
 
-            }
-        );
+
+                    const dateB =
+                        new Date(
+                            b.completedAt
+                            ||
+                            b.createdAt
+                            ||
+                            0
+                        ).getTime();
+
+
+                    return dateB - dateA;
+                }
+            );
 
 
     sortedResults.forEach(
-        function (result) {
+        result => {
+
+            const score =
+                getScore(
+                    result
+                );
+
+
+            if (
+                score === null
+            ) {
+
+                return;
+            }
+
+
+            const passingScore =
+                Number(
+                    result.passingScore
+                    ??
+                    60
+                );
+
+
+            const passed =
+                score >= passingScore;
+
 
             const card =
                 document.createElement(
@@ -412,37 +852,35 @@ function renderResults() {
                 "result-card";
 
 
-            const passed =
-                Number(result.score)
-                >=
-                Number(
-                    result.passingScore
-                );
-
-
             card.innerHTML = `
 
                 <div
-                    class="score-circle ${getScoreClass(
-                        Number(result.score)
-                    )}"
-                >
+    class="score-circle"
+    style="
+        color: ${getScoreColor(score)};
+        border: 3px solid ${getScoreColor(score)};
+        background-color: ${getScoreBackground(score)};
+    "
+>
+    <span
+        style="
+            color: ${getScoreColor(score)};
+            font-weight: 700;
+        "
+    >
+        ${Math.round(score)}
+    </span>
+</div>
 
-                    <span>
-                        ${result.score}
-                    </span>
 
-                </div>
+                <div class="result-info">
 
+                    <span class="result-subject">
 
-                <div
-                    class="result-info"
-                >
+                        ${escapeResultText(
+                            getSubjectName(result)
+                        )}
 
-                    <span
-                        class="result-subject"
-                    >
-                        ${t(result.subject)}
                     </span>
 
 
@@ -450,23 +888,27 @@ function renderResults() {
 
                         ${escapeResultText(
                             result.testName
+                            ||
+                            result.title
+                            ||
+                            "Test"
                         )}
 
                     </h4>
 
 
-                    <div
-                        class="result-bottom"
-                    >
+                    <div class="result-bottom">
 
                         <span>
 
-                            <i
-                                class="bi bi-calendar3"
-                            ></i>
+                            <i class="bi bi-calendar3"></i>
 
-                            ${formatResultDate(
-                                result.completedAt
+                            ${escapeResultText(
+                                formatResultDate(
+                                    result.completedAt
+                                    ||
+                                    result.createdAt
+                                )
                             )}
 
                         </span>
@@ -474,9 +916,11 @@ function renderResults() {
 
                         <span>
 
-                            ${t("threshold")}:
+                            ${escapeResultText(
+                                uiText("threshold")
+                            )}:
 
-                            ${result.passingScore}/100
+                            ${passingScore}/100
 
                         </span>
 
@@ -491,8 +935,12 @@ function renderResults() {
 
                             ${
                                 passed
-                                    ? t("passed")
-                                    : t("failed")
+                                    ? escapeResultText(
+                                        uiText("passed")
+                                    )
+                                    : escapeResultText(
+                                        uiText("failed")
+                                    )
                             }
 
                         </span>
@@ -506,10 +954,40 @@ function renderResults() {
             resultsList.appendChild(
                 card
             );
-
         }
     );
 }
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+document
+    .getElementById(
+        "logoutButton"
+    )
+    .addEventListener(
+        "click",
+        function (event) {
+
+            event.preventDefault();
+
+
+            localStorage.removeItem(
+                "advantaCurrentStudent"
+            );
+
+
+            localStorage.removeItem(
+                "advantaCurrentUser"
+            );
+
+
+            window.location.href =
+                "index.html";
+        }
+    );
 
 
 /* =========================================================
@@ -519,6 +997,8 @@ function renderResults() {
 window.addEventListener(
     "languageChanged",
     function () {
+
+        renderStudentInfo();
 
         renderResults();
     }
@@ -532,6 +1012,8 @@ window.addEventListener(
 document.addEventListener(
     "DOMContentLoaded",
     function () {
+
+        renderStudentInfo();
 
         renderResults();
     }

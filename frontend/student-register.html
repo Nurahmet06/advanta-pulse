@@ -16,7 +16,7 @@
 
 <body>
 
-<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+<div class="container min-vh-100 d-flex align-items-center justify-content-center py-5">
 
   <div class="row w-100 justify-content-center">
 
@@ -28,7 +28,7 @@
           ADVANTA <span class="text-primary">Pulse</span>
         </h1>
 
-        <p class="text-secondary">
+        <p class="text-secondary mb-0">
           Регистрация ученика
         </p>
 
@@ -37,7 +37,7 @@
 
       <div class="card shadow border-0 rounded-4">
 
-        <div class="card-body p-5">
+        <div class="card-body p-4 p-md-5">
 
           <form id="registerForm">
 
@@ -45,7 +45,7 @@
 
               <div class="col-md-6 mb-3">
 
-                <label class="form-label">
+                <label for="firstName" class="form-label">
                   Имя
                 </label>
 
@@ -53,6 +53,7 @@
                   type="text"
                   id="firstName"
                   class="form-control form-control-lg"
+                  autocomplete="given-name"
                   required
                 >
 
@@ -61,7 +62,7 @@
 
               <div class="col-md-6 mb-3">
 
-                <label class="form-label">
+                <label for="lastName" class="form-label">
                   Фамилия
                 </label>
 
@@ -69,6 +70,7 @@
                   type="text"
                   id="lastName"
                   class="form-control form-control-lg"
+                  autocomplete="family-name"
                   required
                 >
 
@@ -77,9 +79,37 @@
             </div>
 
 
+            <!-- ВЫБОР КЛАССА -->
+
             <div class="mb-3">
 
-              <label class="form-label">
+              <label for="studentClass" class="form-label">
+                Класс
+              </label>
+
+              <select
+                id="studentClass"
+                class="form-select form-select-lg"
+                required
+              >
+
+                <option value="">
+                  Выберите свой класс
+                </option>
+
+              </select>
+
+              <div class="form-text">
+                Выберите класс, в котором вы действительно учитесь.
+                Учитель проверит заявку перед подтверждением.
+              </div>
+
+            </div>
+
+
+            <div class="mb-3">
+
+              <label for="registerEmail" class="form-label">
                 Email
               </label>
 
@@ -87,6 +117,7 @@
                 type="email"
                 id="registerEmail"
                 class="form-control form-control-lg"
+                autocomplete="email"
                 required
               >
 
@@ -95,7 +126,7 @@
 
             <div class="mb-3">
 
-              <label class="form-label">
+              <label for="phone" class="form-label">
                 Номер телефона
               </label>
 
@@ -104,6 +135,7 @@
                 id="phone"
                 class="form-control form-control-lg"
                 placeholder="+7 700 000 00 00"
+                autocomplete="tel"
                 required
               >
 
@@ -112,7 +144,7 @@
 
             <div class="mb-3">
 
-              <label class="form-label">
+              <label for="registerPassword" class="form-label">
                 Пароль
               </label>
 
@@ -120,15 +152,21 @@
                 type="password"
                 id="registerPassword"
                 class="form-control form-control-lg"
+                minlength="6"
+                autocomplete="new-password"
                 required
               >
+
+              <div class="form-text">
+                Минимум 6 символов
+              </div>
 
             </div>
 
 
             <div class="mb-4">
 
-              <label class="form-label">
+              <label for="confirmPassword" class="form-label">
                 Повторите пароль
               </label>
 
@@ -136,6 +174,8 @@
                 type="password"
                 id="confirmPassword"
                 class="form-control form-control-lg"
+                minlength="6"
+                autocomplete="new-password"
                 required
               >
 
@@ -144,12 +184,29 @@
 
             <button
               type="submit"
+              id="registerButton"
               class="btn btn-primary btn-lg w-100"
             >
-              Зарегистрироваться
+              Отправить запрос
             </button>
 
           </form>
+
+
+          <div
+            id="registerMessage"
+            class="alert alert-success border-0 rounded-4 mt-4 d-none"
+          >
+
+            <div class="fw-bold mb-1">
+              Запрос отправлен
+            </div>
+
+            <div id="registerMessageText">
+              После подтверждения учителем вы сможете войти в систему.
+            </div>
+
+          </div>
 
 
           <div class="text-center mt-4">
@@ -158,14 +215,6 @@
               Уже есть аккаунт? Войти
             </a>
 
-          </div>
-
-
-          <div
-            id="registerMessage"
-            class="alert alert-success mt-4 d-none"
-          >
-            Регистрация выполнена
           </div>
 
         </div>

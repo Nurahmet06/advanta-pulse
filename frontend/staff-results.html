@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ADVANTA Pulse — Результаты учеников</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+</head>
+
+
+<body class="student-page">
+
+<div class="student-layout">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="student-sidebar">
+
+        <div class="student-logo">
+            ADVANTA <span>Pulse</span>
+        </div>
+
+
+        <nav class="student-nav">
+
+            <a
+                href="staff-home.html"
+                class="student-nav-link"
+            >
+                <i class="bi bi-house"></i>
+
+                <span data-i18n="staffHome">
+                    Главная
+                </span>
+            </a>
+
+
+            <a
+                href="staff-tests.html"
+                class="student-nav-link"
+            >
+                <i class="bi bi-clipboard-check"></i>
+
+                <span data-i18n="myTests">
+                    Мои тесты
+                </span>
+            </a>
+
+
+            <a
+                href="staff-classes.html"
+                class="student-nav-link"
+            >
+                <i class="bi bi-people"></i>
+
+                <span data-i18n="classes">
+                    Классы
+                </span>
+            </a>
+
+
+            <a
+                href="staff-results.html"
+                class="student-nav-link active"
+            >
+                <i class="bi bi-bar-chart"></i>
+
+                <span data-i18n="studentResults">
+                    Результаты учеников
+                </span>
+            </a>
+
+
+            <a
+                href="staff-analytics.html"
+                class="student-nav-link"
+            >
+                <i class="bi bi-graph-up-arrow"></i>
+
+                <span data-i18n="analytics">
+                    Аналитика
+                </span>
+            </a>
+
+        </nav>
+
+
+        <a
+            href="index.html"
+            class="student-nav-link logout-link"
+        >
+            <i class="bi bi-box-arrow-left"></i>
+
+            <span data-i18n="logout">
+                Выйти
+            </span>
+        </a>
+
+    </aside>
+
+
+
+    <!-- MAIN -->
+
+    <main class="student-main">
+
+
+        <!-- HEADER -->
+
+        <div class="student-header">
+
+            <div>
+
+                <p
+                    class="student-welcome"
+                    data-i18n="staffWelcome"
+                >
+                    Добро пожаловать
+                </p>
+
+
+                <h2
+                    id="teacherName"
+                    class="fw-bold mb-1"
+                >
+                    Айгуль Сериковна
+                </h2>
+
+
+                <p
+                    id="teacherSubject"
+                    class="text-secondary mb-0"
+                >
+                    Учитель • Математика
+                </p>
+
+            </div>
+
+
+            <div class="d-flex align-items-center gap-3">
+
+                <select
+                    id="languageSelect"
+                    class="form-select language-select"
+                >
+                    <option value="ru">RU</option>
+                    <option value="kz">KZ</option>
+                    <option value="en">EN</option>
+                </select>
+
+
+                <div class="student-avatar">
+                    <i class="bi bi-person"></i>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- TITLE -->
+
+        <div class="mb-4">
+
+            <h2
+                class="fw-bold mb-1"
+                data-i18n="studentResults"
+            >
+                Результаты учеников
+            </h2>
+
+            <p
+                id="pageDescription"
+                class="text-secondary mb-0"
+            >
+                Результаты учеников по всем вашим классам
+            </p>
+
+        </div>
+
+
+
+        <!-- SUMMARY -->
+
+        <div class="row g-4 mb-4">
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="overview-card h-100">
+
+                    <div class="overview-icon">
+                        <i class="bi bi-clipboard-check"></i>
+                    </div>
+
+                    <p id="completedLabel">
+                        Завершено тестов
+                    </p>
+
+                    <h2 id="completedValue">
+                        0
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="overview-card h-100">
+
+                    <div class="overview-icon">
+                        <i class="bi bi-graph-up"></i>
+                    </div>
+
+                    <p id="averageLabel">
+                        Средний результат
+                    </p>
+
+                    <h2 id="averageValue">
+                        —
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="overview-card h-100">
+
+                    <div class="overview-icon">
+                        <i class="bi bi-trophy"></i>
+                    </div>
+
+                    <p id="bestLabel">
+                        Лучший результат
+                    </p>
+
+                    <h2 id="bestValue">
+                        —
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="overview-card h-100">
+
+                    <div class="overview-icon">
+                        <i class="bi bi-check-circle"></i>
+                    </div>
+
+                    <p id="passRateLabel">
+                        Успешно пройдено
+                    </p>
+
+                    <h2 id="passRateValue">
+                        —
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FILTERS -->
+
+        <div class="content-card mb-4">
+
+            <div class="row g-3">
+
+
+                <div class="col-lg-4">
+
+                    <label
+                        id="classFilterLabel"
+                        for="classFilter"
+                        class="form-label fw-semibold"
+                    >
+                        Класс
+                    </label>
+
+                    <select
+                        id="classFilter"
+                        class="form-select"
+                    >
+                    </select>
+
+                </div>
+
+
+                <div class="col-lg-4">
+
+                    <label
+                        id="studentFilterLabel"
+                        for="studentFilter"
+                        class="form-label fw-semibold"
+                    >
+                        Ученик
+                    </label>
+
+                    <select
+                        id="studentFilter"
+                        class="form-select"
+                    >
+                    </select>
+
+                </div>
+
+
+                <div class="col-lg-4">
+
+                    <label
+                        id="testFilterLabel"
+                        for="testFilter"
+                        class="form-label fw-semibold"
+                    >
+                        Тест
+                    </label>
+
+                    <select
+                        id="testFilter"
+                        class="form-select"
+                    >
+                    </select>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- RESULTS -->
+
+        <div class="content-card">
+
+            <div
+                id="resultsEmpty"
+                class="text-center py-5 d-none"
+            >
+
+                <i class="bi bi-bar-chart fs-1 text-secondary"></i>
+
+                <h5
+                    id="resultsEmptyTitle"
+                    class="fw-bold mt-3"
+                >
+                    Результатов пока нет
+                </h5>
+
+                <p
+                    id="resultsEmptyText"
+                    class="text-secondary mb-0"
+                >
+                    Результаты появятся после прохождения тестов учениками.
+                </p>
+
+            </div>
+
+
+            <div
+                id="resultsTableWrapper"
+                class="table-responsive d-none"
+            >
+
+                <table class="table align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th id="studentHeader">
+                                Ученик
+                            </th>
+
+                            <th id="classHeader">
+                                Класс
+                            </th>
+
+                            <th id="testHeader">
+                                Тест
+                            </th>
+
+                            <th id="scoreHeader">
+                                Результат
+                            </th>
+
+                            <th id="passingHeader">
+                                Порог
+                            </th>
+
+                            <th id="statusHeader">
+                                Статус
+                            </th>
+
+                            <th id="dateHeader">
+                                Дата
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="resultsTableBody">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+</div>
+
+
+<script src="js/language.js"></script>
+<script src="js/staff-results.js"></script>
+
+</body>
+
+</html>

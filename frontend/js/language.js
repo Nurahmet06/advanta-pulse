@@ -31,13 +31,23 @@ const translations = {
         submit: "Отправить",
         return: "Вернуться",
 
+        email: "Email",
+        password: "Пароль",
+        phone: "Номер телефона",
+
+        status: "Статус",
+        actions: "Действия",
+
+        approve: "Подтвердить",
+        reject: "Отклонить",
+        approved: "Подтверждён",
+        rejected: "Отклонён",
+        pending: "Ожидает подтверждения",
+
 
         /* ВХОД */
 
         loginTitle: "Вход в систему",
-
-        email: "Email",
-        password: "Пароль",
 
         enterEmail: "Введите email",
         enterPassword: "Введите пароль",
@@ -65,11 +75,11 @@ const translations = {
         lastName:
             "Фамилия",
 
-        phone:
-            "Номер телефона",
-
         repeatPassword:
             "Повторите пароль",
+
+        minimum6Characters:
+            "Минимум 6 символов",
 
         alreadyHaveAccount:
             "Уже есть аккаунт? Войти",
@@ -79,6 +89,42 @@ const translations = {
 
         passwordsNotMatch:
             "Пароли не совпадают",
+
+        selectClass:
+            "Класс",
+
+        chooseClass:
+            "Выберите свой класс",
+
+        chooseRealClassHint:
+            "Выберите класс, в котором вы действительно учитесь. Учитель проверит заявку перед подтверждением.",
+
+        sendRequest:
+            "Отправить запрос",
+
+        requestSent:
+            "Запрос отправлен",
+
+        waitingForApproval:
+            "После подтверждения учителем вы сможете войти в систему.",
+
+        selectYourClass:
+            "Выберите свой класс",
+
+        selectedClassNotFound:
+            "Выбранный класс не найден",
+
+        accountAlreadyExists:
+            "Аккаунт с таким Email уже существует",
+
+        requestAlreadyExists:
+            "У вас уже есть заявка. Ожидайте подтверждения учителя.",
+
+        sendingRequest:
+            "Отправляем запрос...",
+
+        requestFailed:
+            "Не удалось отправить запрос. Попробуйте ещё раз.",
 
 
         /* ГЛАВНАЯ УЧЕНИКА */
@@ -244,7 +290,6 @@ const translations = {
         q1c: "1/6",
         q1d: "2/4",
 
-
         q2:
             "Какая дробь является правильной?",
 
@@ -252,7 +297,6 @@ const translations = {
         q2b: "9/5",
         q2c: "3/8",
         q2d: "12/7",
-
 
         q3:
             "Чему равно 3/5 − 1/5?",
@@ -262,7 +306,6 @@ const translations = {
         q3c: "4/5",
         q3d: "3/10",
 
-
         q4:
             "Какая дробь равна 0,5?",
 
@@ -270,7 +313,6 @@ const translations = {
         q4b: "1/2",
         q4c: "2/3",
         q4d: "3/4",
-
 
         q5:
             "Чему равно 2/3 + 1/3?",
@@ -293,85 +335,124 @@ const translations = {
             "Правильные ответы не отображаются.",
 
         returnCabinet:
-    "Вернуться в кабинет",
+            "Вернуться в кабинет",
 
-staffHome:
-    "Главная",
 
-myTests:
-    "Мои тесты",
+        /* КАБИНЕТ УЧИТЕЛЯ */
 
-createTest:
-    "Создать тест",
+        staffHome:
+            "Главная",
 
-classes:
-    "Классы",
+        myTests:
+            "Мои тесты",
 
-analytics:
-    "Аналитика",
+        createTest:
+            "Создать тест",
 
-studentResults:
-    "Результаты учеников",
+        classes:
+            "Классы",
 
-teacher:
-    "Учитель",
+        analytics:
+            "Аналитика",
 
-deputy:
-    "Завуч",
+        studentResults:
+            "Результаты учеников",
 
-director:
-    "Директор",
+        teacher:
+            "Учитель",
 
-staffWelcome:
-    "Добро пожаловать",
+        deputy:
+            "Завуч",
 
-testsCreated:
-    "Создано тестов",
+        director:
+            "Директор",
 
-activeTests:
-    "Активные тесты",
+        staffWelcome:
+            "Добро пожаловать",
 
-students:
-    "Ученики",
+        testsCreated:
+            "Создано тестов",
 
-classAverage:
-    "Средний результат",
+        activeTests:
+            "Активные тесты",
 
-recentTests:
-    "Последние тесты",
+        students:
+            "Ученики",
 
-testName:
-    "Название теста",
+        classAverage:
+            "Средний результат",
 
-subject:
-    "Предмет",
+        recentTests:
+            "Последние тесты",
 
-class:
-    "Класс",
+        testName:
+            "Название теста",
 
-status:
-    "Статус",
+        subject:
+            "Предмет",
 
-actions:
-    "Действия",
+        class:
+            "Класс",
 
-draft:
-    "Черновик",
+        draft:
+            "Черновик",
 
-published:
-    "Назначен",
+        published:
+            "Назначен",
 
-finished:
-    "Завершён",
+        finished:
+            "Завершён",
 
-open:
-    "Открыть",
+        open:
+            "Открыть",
 
-assign:
-    "Назначить",
+        assign:
+            "Назначить",
 
-deadlineRequired:
-    "Перед назначением теста укажите дедлайн"
+        deadlineRequired:
+            "Перед назначением теста укажите дедлайн",
+
+
+        /* КЛАССЫ УЧИТЕЛЯ */
+
+        myClasses:
+            "Мои классы",
+
+        studentsAndRequests:
+            "Ученики и заявки на вступление",
+
+        requests:
+            "Заявки",
+
+        noNewRequests:
+            "Новых заявок нет",
+
+        requestsWillAppear:
+            "Здесь появятся ученики, выбравшие этот класс при регистрации.",
+
+        noStudents:
+            "В классе пока нет учеников",
+
+        studentsCount:
+            "учеников",
+
+        requestsCount:
+            "заявок",
+
+        newRequests:
+            "новых заявок",
+
+        studentAdded:
+            "Ученик добавлен в класс",
+
+        noClassAccess:
+            "У вас нет доступа к этому классу.",
+
+        studentAlreadyExists:
+            "Ученик с таким Email уже существует.",
+
+        rejectRequestQuestion:
+            "Отклонить заявку?"
     },
 
 
@@ -400,17 +481,24 @@ deadlineRequired:
         submit: "Жіберу",
         return: "Қайту",
 
+        email: "Email",
+        password: "Құпиясөз",
+        phone: "Телефон нөмірі",
+
+        status: "Мәртебе",
+        actions: "Әрекеттер",
+
+        approve: "Растау",
+        reject: "Қабылдамау",
+        approved: "Расталды",
+        rejected: "Қабылданбады",
+        pending: "Растауды күтуде",
+
 
         /* КІРУ */
 
         loginTitle:
             "Жүйеге кіру",
-
-        email:
-            "Email",
-
-        password:
-            "Құпиясөз",
 
         enterEmail:
             "Email енгізіңіз",
@@ -442,11 +530,11 @@ deadlineRequired:
         lastName:
             "Тегі",
 
-        phone:
-            "Телефон нөмірі",
-
         repeatPassword:
             "Құпиясөзді қайталаңыз",
+
+        minimum6Characters:
+            "Кемінде 6 таңба",
 
         alreadyHaveAccount:
             "Аккаунтыңыз бар ма? Кіру",
@@ -456,6 +544,42 @@ deadlineRequired:
 
         passwordsNotMatch:
             "Құпиясөздер сәйкес келмейді",
+
+        selectClass:
+            "Сынып",
+
+        chooseClass:
+            "Өз сыныбыңызды таңдаңыз",
+
+        chooseRealClassHint:
+            "Өзіңіз оқитын сыныпты таңдаңыз. Мұғалім өтінімді растау алдында тексереді.",
+
+        sendRequest:
+            "Өтінім жіберу",
+
+        requestSent:
+            "Өтінім жіберілді",
+
+        waitingForApproval:
+            "Мұғалім растағаннан кейін жүйеге кіре аласыз.",
+
+        selectYourClass:
+            "Өз сыныбыңызды таңдаңыз",
+
+        selectedClassNotFound:
+            "Таңдалған сынып табылмады",
+
+        accountAlreadyExists:
+            "Бұл Email арқылы аккаунт бұрын тіркелген",
+
+        requestAlreadyExists:
+            "Сіз өтінім жіберіп қойдыңыз. Мұғалімнің растауын күтіңіз.",
+
+        sendingRequest:
+            "Өтінім жіберілуде...",
+
+        requestFailed:
+            "Өтінімді жіберу мүмкін болмады. Қайта көріңіз.",
 
 
         /* ОҚУШЫНЫҢ БАСТЫ БЕТІ */
@@ -621,7 +745,6 @@ deadlineRequired:
         q1c: "1/6",
         q1d: "2/4",
 
-
         q2:
             "Қай бөлшек дұрыс бөлшек?",
 
@@ -629,7 +752,6 @@ deadlineRequired:
         q2b: "9/5",
         q2c: "3/8",
         q2d: "12/7",
-
 
         q3:
             "3/5 − 1/5 нешеге тең?",
@@ -639,7 +761,6 @@ deadlineRequired:
         q3c: "4/5",
         q3d: "3/10",
 
-
         q4:
             "Қай бөлшек 0,5 санына тең?",
 
@@ -647,7 +768,6 @@ deadlineRequired:
         q4b: "1/2",
         q4c: "2/3",
         q4d: "3/4",
-
 
         q5:
             "2/3 + 1/3 нешеге тең?",
@@ -670,85 +790,124 @@ deadlineRequired:
             "Дұрыс жауаптар көрсетілмейді.",
 
         returnCabinet:
-    "Жеке кабинетке қайту",
+            "Жеке кабинетке қайту",
 
-staffHome:
-    "Басты бет",
 
-myTests:
-    "Менің тесттерім",
+        /* МҰҒАЛІМ КАБИНЕТІ */
 
-createTest:
-    "Тест құру",
+        staffHome:
+            "Басты бет",
 
-classes:
-    "Сыныптар",
+        myTests:
+            "Менің тесттерім",
 
-analytics:
-    "Аналитика",
+        createTest:
+            "Тест құру",
 
-studentResults:
-    "Оқушылардың нәтижелері",
+        classes:
+            "Сыныптар",
 
-teacher:
-    "Мұғалім",
+        analytics:
+            "Аналитика",
 
-deputy:
-    "Оқу ісі меңгерушісі",
+        studentResults:
+            "Оқушылардың нәтижелері",
 
-director:
-    "Директор",
+        teacher:
+            "Мұғалім",
 
-staffWelcome:
-    "Қош келдіңіз",
+        deputy:
+            "Оқу ісі меңгерушісі",
 
-testsCreated:
-    "Құрылған тесттер",
+        director:
+            "Директор",
 
-activeTests:
-    "Белсенді тесттер",
+        staffWelcome:
+            "Қош келдіңіз",
 
-students:
-    "Оқушылар",
+        testsCreated:
+            "Құрылған тесттер",
 
-classAverage:
-    "Орташа нәтиже",
+        activeTests:
+            "Белсенді тесттер",
 
-recentTests:
-    "Соңғы тесттер",
+        students:
+            "Оқушылар",
 
-testName:
-    "Тест атауы",
+        classAverage:
+            "Орташа нәтиже",
 
-subject:
-    "Пән",
+        recentTests:
+            "Соңғы тесттер",
 
-class:
-    "Сынып",
+        testName:
+            "Тест атауы",
 
-status:
-    "Мәртебе",
+        subject:
+            "Пән",
 
-actions:
-    "Әрекеттер",
+        class:
+            "Сынып",
 
-draft:
-    "Жоба",
+        draft:
+            "Жоба",
 
-published:
-    "Тағайындалды",
+        published:
+            "Тағайындалды",
 
-finished:
-    "Аяқталды",
+        finished:
+            "Аяқталды",
 
-open:
-    "Ашу",
+        open:
+            "Ашу",
 
-assign:
-    "Тағайындау",
+        assign:
+            "Тағайындау",
 
-deadlineRequired:
-    "Тестті тағайындамас бұрын соңғы мерзімді көрсетіңіз"
+        deadlineRequired:
+            "Тестті тағайындамас бұрын соңғы мерзімді көрсетіңіз",
+
+
+        /* МҰҒАЛІМНІҢ СЫНЫПТАРЫ */
+
+        myClasses:
+            "Менің сыныптарым",
+
+        studentsAndRequests:
+            "Оқушылар және сыныпқа қосылу өтінімдері",
+
+        requests:
+            "Өтінімдер",
+
+        noNewRequests:
+            "Жаңа өтінімдер жоқ",
+
+        requestsWillAppear:
+            "Тіркелу кезінде осы сыныпты таңдаған оқушылар осында шығады.",
+
+        noStudents:
+            "Сыныпта әзірге оқушылар жоқ",
+
+        studentsCount:
+            "оқушы",
+
+        requestsCount:
+            "өтінім",
+
+        newRequests:
+            "жаңа өтінім",
+
+        studentAdded:
+            "Оқушы сыныпқа қосылды",
+
+        noClassAccess:
+            "Бұл сыныпқа қолжетімділігіңіз жоқ.",
+
+        studentAlreadyExists:
+            "Бұл Email арқылы оқушы бұрын тіркелген.",
+
+        rejectRequestQuestion:
+            "Өтінімді қабылдамайсыз ба?"
     },
 
 
@@ -777,17 +936,24 @@ deadlineRequired:
         submit: "Submit",
         return: "Go back",
 
+        email: "Email",
+        password: "Password",
+        phone: "Phone number",
+
+        status: "Status",
+        actions: "Actions",
+
+        approve: "Approve",
+        reject: "Reject",
+        approved: "Approved",
+        rejected: "Rejected",
+        pending: "Pending approval",
+
 
         /* LOGIN */
 
         loginTitle:
             "Sign in",
-
-        email:
-            "Email",
-
-        password:
-            "Password",
 
         enterEmail:
             "Enter email",
@@ -819,11 +985,11 @@ deadlineRequired:
         lastName:
             "Last name",
 
-        phone:
-            "Phone number",
-
         repeatPassword:
             "Repeat password",
+
+        minimum6Characters:
+            "Minimum 6 characters",
 
         alreadyHaveAccount:
             "Already have an account? Sign in",
@@ -833,6 +999,42 @@ deadlineRequired:
 
         passwordsNotMatch:
             "Passwords do not match",
+
+        selectClass:
+            "Class",
+
+        chooseClass:
+            "Select your class",
+
+        chooseRealClassHint:
+            "Select the class you actually study in. The teacher will review your request before approval.",
+
+        sendRequest:
+            "Send request",
+
+        requestSent:
+            "Request sent",
+
+        waitingForApproval:
+            "You will be able to sign in after your teacher approves the request.",
+
+        selectYourClass:
+            "Select your class",
+
+        selectedClassNotFound:
+            "The selected class was not found",
+
+        accountAlreadyExists:
+            "An account with this email already exists",
+
+        requestAlreadyExists:
+            "You already have a pending request. Please wait for teacher approval.",
+
+        sendingRequest:
+            "Sending request...",
+
+        requestFailed:
+            "Could not send the request. Please try again.",
 
 
         /* STUDENT HOME */
@@ -998,7 +1200,6 @@ deadlineRequired:
         q1c: "1/6",
         q1d: "2/4",
 
-
         q2:
             "Which fraction is a proper fraction?",
 
@@ -1006,7 +1207,6 @@ deadlineRequired:
         q2b: "9/5",
         q2c: "3/8",
         q2d: "12/7",
-
 
         q3:
             "What is 3/5 − 1/5?",
@@ -1016,7 +1216,6 @@ deadlineRequired:
         q3c: "4/5",
         q3d: "3/10",
 
-
         q4:
             "Which fraction is equal to 0.5?",
 
@@ -1024,7 +1223,6 @@ deadlineRequired:
         q4b: "1/2",
         q4c: "2/3",
         q4d: "3/4",
-
 
         q5:
             "What is 2/3 + 1/3?",
@@ -1047,85 +1245,124 @@ deadlineRequired:
             "Correct answers are not displayed.",
 
         returnCabinet:
-    "Return to dashboard",
+            "Return to dashboard",
 
-staffHome:
-    "Home",
 
-myTests:
-    "My Tests",
+        /* STAFF */
 
-createTest:
-    "Create Test",
+        staffHome:
+            "Home",
 
-classes:
-    "Classes",
+        myTests:
+            "My Tests",
 
-analytics:
-    "Analytics",
+        createTest:
+            "Create Test",
 
-studentResults:
-    "Student Results",
+        classes:
+            "Classes",
 
-teacher:
-    "Teacher",
+        analytics:
+            "Analytics",
 
-deputy:
-    "Deputy Principal",
+        studentResults:
+            "Student Results",
 
-director:
-    "Director",
+        teacher:
+            "Teacher",
 
-staffWelcome:
-    "Welcome",
+        deputy:
+            "Deputy Principal",
 
-testsCreated:
-    "Tests created",
+        director:
+            "Director",
 
-activeTests:
-    "Active tests",
+        staffWelcome:
+            "Welcome",
 
-students:
-    "Students",
+        testsCreated:
+            "Tests created",
 
-classAverage:
-    "Average score",
+        activeTests:
+            "Active tests",
 
-recentTests:
-    "Recent tests",
+        students:
+            "Students",
 
-testName:
-    "Test name",
+        classAverage:
+            "Average score",
 
-subject:
-    "Subject",
+        recentTests:
+            "Recent tests",
 
-class:
-    "Class",
+        testName:
+            "Test name",
 
-status:
-    "Status",
+        subject:
+            "Subject",
 
-actions:
-    "Actions",
+        class:
+            "Class",
 
-draft:
-    "Draft",
+        draft:
+            "Draft",
 
-published:
-    "Assigned",
+        published:
+            "Assigned",
 
-finished:
-    "Completed",
+        finished:
+            "Completed",
 
-open:
-    "Open",
+        open:
+            "Open",
 
-assign:
-    "Assign",
+        assign:
+            "Assign",
 
-deadlineRequired:
-    "Set a deadline before assigning the test"
+        deadlineRequired:
+            "Set a deadline before assigning the test",
+
+
+        /* TEACHER CLASSES */
+
+        myClasses:
+            "My Classes",
+
+        studentsAndRequests:
+            "Students and class join requests",
+
+        requests:
+            "Requests",
+
+        noNewRequests:
+            "No new requests",
+
+        requestsWillAppear:
+            "Students who select this class during registration will appear here.",
+
+        noStudents:
+            "There are no students in this class yet",
+
+        studentsCount:
+            "students",
+
+        requestsCount:
+            "requests",
+
+        newRequests:
+            "new requests",
+
+        studentAdded:
+            "Student added to class",
+
+        noClassAccess:
+            "You do not have access to this class.",
+
+        studentAlreadyExists:
+            "A student with this email already exists.",
+
+        rejectRequestQuestion:
+            "Reject this request?"
     }
 };
 
@@ -1168,7 +1405,17 @@ function applyLanguage() {
 
     const language = getCurrentLanguage();
 
-    document.documentElement.lang = language;
+
+    /*
+      Для HTML корректный код казахского языка — kk.
+      В localStorage продолжаем использовать kz,
+      чтобы не ломать существующий проект.
+    */
+
+    document.documentElement.lang =
+        language === "kz"
+            ? "kk"
+            : language;
 
 
     /* ОБЫЧНЫЙ ТЕКСТ */
@@ -1186,7 +1433,7 @@ function applyLanguage() {
         });
 
 
-    /* PLACEHOLDER У INPUT */
+    /* PLACEHOLDER */
 
     document
         .querySelectorAll("[data-i18n-placeholder]")
@@ -1201,10 +1448,28 @@ function applyLanguage() {
         });
 
 
+    /* TITLE */
+
+    document
+        .querySelectorAll("[data-i18n-title]")
+        .forEach(element => {
+
+            const key =
+                element.dataset.i18nTitle;
+
+            element.title =
+                t(key);
+
+        });
+
+
     /* ПЕРЕКЛЮЧАТЕЛЬ RU / KZ / EN */
 
     const selector =
-        document.getElementById("languageSelect");
+        document.getElementById(
+            "languageSelect"
+        );
+
 
     if (selector) {
 
@@ -1244,6 +1509,12 @@ function setLanguage(language) {
     applyLanguage();
 
 
+    /*
+      Другие JS-файлы могут слушать
+      это событие и перерисовывать
+      динамический контент.
+    */
+
     window.dispatchEvent(
         new CustomEvent(
             "languageChanged",
@@ -1259,7 +1530,8 @@ function setLanguage(language) {
 
 
 /* =========================================================
-   ДЕЛАЕМ ФУНКЦИИ ДОСТУПНЫМИ ДРУГИМ JS-ФАЙЛАМ
+   ДЕЛАЕМ ФУНКЦИИ ДОСТУПНЫМИ
+   ДРУГИМ JS-ФАЙЛАМ
    ========================================================= */
 
 window.translations =

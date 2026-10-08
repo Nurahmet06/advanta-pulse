@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ADVANTA Pulse — Класс</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+</head>
+
+
+<body class="student-page">
+
+<div class="student-layout">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="student-sidebar">
+
+        <div class="student-logo">
+            ADVANTA <span>Pulse</span>
+        </div>
+
+
+        <nav class="student-nav">
+
+            <a
+                href="staff-home.html"
+                class="student-nav-link"
+            >
+                <i class="bi bi-house"></i>
+
+                <span data-i18n="staffHome">
+                    Главная
+                </span>
+            </a>
+
+
+            <a
+                href="staff-tests.html"
+                class="student-nav-link"
+            >
+                <i class="bi bi-clipboard-check"></i>
+
+                <span data-i18n="myTests">
+                    Мои тесты
+                </span>
+            </a>
+
+
+            <a
+                href="staff-classes.html"
+                class="student-nav-link active"
+            >
+                <i class="bi bi-people"></i>
+
+                <span data-i18n="classes">
+                    Классы
+                </span>
+            </a>
+
+
+            <a
+                href="staff-results.html"
+                class="student-nav-link"
+            >
+                <i class="bi bi-bar-chart"></i>
+
+                <span data-i18n="studentResults">
+                    Результаты учеников
+                </span>
+            </a>
+
+
+            <a
+                href="staff-analytics.html"
+                class="student-nav-link"
+            >
+                <i class="bi bi-graph-up-arrow"></i>
+
+                <span data-i18n="analytics">
+                    Аналитика
+                </span>
+            </a>
+
+        </nav>
+
+
+        <a
+            href="index.html"
+            class="student-nav-link logout-link"
+        >
+            <i class="bi bi-box-arrow-left"></i>
+
+            <span data-i18n="logout">
+                Выйти
+            </span>
+        </a>
+
+    </aside>
+
+
+
+    <!-- MAIN -->
+
+    <main class="student-main">
+
+
+        <!-- HEADER -->
+
+        <div class="student-header">
+
+            <div>
+
+                <p
+                    class="student-welcome"
+                    data-i18n="staffWelcome"
+                >
+                    Добро пожаловать
+                </p>
+
+
+                <h2
+                    id="teacherName"
+                    class="fw-bold mb-1"
+                >
+                    Айгуль Сериковна
+                </h2>
+
+
+                <p
+                    id="teacherSubject"
+                    class="text-secondary mb-0"
+                >
+                    Учитель • Математика
+                </p>
+
+            </div>
+
+
+            <div class="d-flex align-items-center gap-3">
+
+                <select
+                    id="languageSelect"
+                    class="form-select language-select"
+                >
+                    <option value="ru">RU</option>
+                    <option value="kz">KZ</option>
+                    <option value="en">EN</option>
+                </select>
+
+
+                <div class="student-avatar">
+                    <i class="bi bi-person"></i>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- BACK -->
+
+        <div class="mb-3">
+
+            <a
+                href="staff-classes.html"
+                class="text-decoration-none"
+            >
+                <i class="bi bi-arrow-left me-1"></i>
+
+                <span data-i18n="classes">
+                    Классы
+                </span>
+            </a>
+
+        </div>
+
+
+
+        <!-- CLASS HEADER -->
+
+        <div
+            class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4"
+        >
+
+            <div>
+
+                <h2
+                    id="classTitle"
+                    class="fw-bold mb-1"
+                >
+                    —
+                </h2>
+
+
+                <p
+                    id="classSubject"
+                    class="text-secondary mb-0"
+                >
+                    —
+                </p>
+
+            </div>
+
+
+            <a
+                id="createTestButton"
+                href="#"
+                class="btn btn-primary"
+            >
+                <i class="bi bi-plus-lg me-1"></i>
+
+                <span data-i18n="createTest">
+                    Создать тест
+                </span>
+            </a>
+
+        </div>
+
+
+
+        <!-- COUNTERS -->
+
+        <div class="row g-4 mb-4">
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="overview-card">
+
+                    <div class="overview-icon">
+                        <i class="bi bi-people"></i>
+                    </div>
+
+                    <p data-i18n="students">
+                        Ученики
+                    </p>
+
+                    <h2 id="studentsCount">
+                        0
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="overview-card">
+
+                    <div class="overview-icon">
+                        <i class="bi bi-person-plus"></i>
+                    </div>
+
+                    <p data-i18n="requests">
+                        Заявки
+                    </p>
+
+                    <h2 id="requestsCount">
+                        0
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="overview-card">
+
+                    <div class="overview-icon">
+                        <i class="bi bi-clipboard-check"></i>
+                    </div>
+
+                    <p data-i18n="myTests">
+                        Мои тесты
+                    </p>
+
+                    <h2 id="testsCount">
+                        0
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="overview-card">
+
+                    <div class="overview-icon">
+                        <i class="bi bi-graph-up"></i>
+                    </div>
+
+                    <p data-i18n="classAverage">
+                        Средний результат
+                    </p>
+
+                    <h2 id="averageResult">
+                        —
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- TABS -->
+
+        <div class="content-card mb-4">
+
+            <div class="d-flex flex-wrap gap-2">
+
+                <button
+                    type="button"
+                    class="btn btn-primary class-tab"
+                    data-section="overview"
+                    id="overviewTabButton"
+                >
+                    Обзор
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-outline-primary class-tab"
+                    data-section="students"
+                >
+                    <span data-i18n="students">
+                        Ученики
+                    </span>
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-outline-primary class-tab"
+                    data-section="requests"
+                >
+                    <span data-i18n="requests">
+                        Заявки
+                    </span>
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-outline-primary class-tab"
+                    data-section="tests"
+                >
+                    <span data-i18n="myTests">
+                        Мои тесты
+                    </span>
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-outline-primary class-tab"
+                    data-section="results"
+                >
+                    <span data-i18n="studentResults">
+                        Результаты учеников
+                    </span>
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-outline-primary class-tab"
+                    data-section="analytics"
+                >
+                    <span data-i18n="analytics">
+                        Аналитика
+                    </span>
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- OVERVIEW -->
+
+        <section
+            id="section-overview"
+            class="class-section"
+        >
+
+            <div class="content-card">
+
+                <h4
+                    id="overviewTitle"
+                    class="fw-bold mb-2"
+                >
+                    Обзор класса
+                </h4>
+
+                <p
+                    id="overviewText"
+                    class="text-secondary mb-0"
+                >
+                    Информация по выбранному классу.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- STUDENTS -->
+
+        <section
+            id="section-students"
+            class="class-section d-none"
+        >
+
+            <div class="content-card">
+
+                <h4
+                    class="fw-bold mb-4"
+                    data-i18n="students"
+                >
+                    Ученики
+                </h4>
+
+
+                <div
+                    id="studentsEmpty"
+                    class="text-center py-5"
+                >
+                    <i class="bi bi-people fs-1 text-secondary"></i>
+
+                    <p
+                        class="text-secondary mt-3 mb-0"
+                        data-i18n="noStudents"
+                    >
+                        В классе пока нет учеников
+                    </p>
+                </div>
+
+
+                <div
+                    id="studentsTableWrapper"
+                    class="table-responsive d-none"
+                >
+
+                    <table class="table align-middle">
+
+                        <thead>
+
+                            <tr>
+                                <th data-i18n="student">
+                                    Ученик
+                                </th>
+
+                                <th>Email</th>
+
+                                <th data-i18n="phone">
+                                    Телефон
+                                </th>
+
+                                <th data-i18n="status">
+                                    Статус
+                                </th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="studentsTableBody">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- REQUESTS -->
+
+        <section
+            id="section-requests"
+            class="class-section d-none"
+        >
+
+            <div class="content-card">
+
+                <h4
+                    class="fw-bold mb-4"
+                    data-i18n="requests"
+                >
+                    Заявки
+                </h4>
+
+
+                <div
+                    id="requestsEmpty"
+                    class="text-center py-5"
+                >
+                    <i class="bi bi-check-circle fs-1 text-secondary"></i>
+
+                    <p
+                        class="text-secondary mt-3 mb-0"
+                        data-i18n="noNewRequests"
+                    >
+                        Новых заявок нет
+                    </p>
+                </div>
+
+
+                <div
+                    id="requestsContainer"
+                    class="d-flex flex-column gap-3"
+                >
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- TESTS -->
+
+        <section
+            id="section-tests"
+            class="class-section d-none"
+        >
+
+            <div class="content-card">
+
+                <div
+                    class="d-flex justify-content-between align-items-center mb-4"
+                >
+
+                    <h4
+                        class="fw-bold mb-0"
+                        data-i18n="myTests"
+                    >
+                        Мои тесты
+                    </h4>
+
+
+                    <a
+                        id="createTestButtonInside"
+                        href="#"
+                        class="btn btn-primary"
+                    >
+                        <i class="bi bi-plus-lg me-1"></i>
+
+                        <span data-i18n="createTest">
+                            Создать тест
+                        </span>
+                    </a>
+
+                </div>
+
+
+                <div
+                    id="testsEmpty"
+                    class="text-center text-secondary py-5"
+                >
+                    Тестов пока нет
+                </div>
+
+
+                <div
+                    id="testsContainer"
+                    class="d-flex flex-column gap-3"
+                >
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- RESULTS -->
+
+        <section
+            id="section-results"
+            class="class-section d-none"
+        >
+
+            <div class="content-card">
+
+                <div class="mb-4">
+
+                    <h4
+                        class="fw-bold mb-1"
+                        data-i18n="studentResults"
+                    >
+                        Результаты учеников
+                    </h4>
+
+                    <p
+                        id="resultsDescription"
+                        class="text-secondary mb-0"
+                    >
+                        Результаты тестов этого класса
+                    </p>
+
+                </div>
+
+
+                <!-- EMPTY -->
+
+                <div
+                    id="classResultsEmpty"
+                    class="text-center py-5 d-none"
+                >
+
+                    <i
+                        class="bi bi-bar-chart fs-1 text-secondary"
+                    ></i>
+
+                    <h5
+                        id="classResultsEmptyTitle"
+                        class="fw-bold mt-3"
+                    >
+                        Результатов пока нет
+                    </h5>
+
+                    <p
+                        id="classResultsEmptyText"
+                        class="text-secondary mb-0"
+                    >
+                        После прохождения тестов результаты учеников появятся здесь.
+                    </p>
+
+                </div>
+
+
+                <!-- TABLE -->
+
+                <div
+                    id="classResultsTableWrapper"
+                    class="table-responsive d-none"
+                >
+
+                    <table class="table align-middle">
+
+                        <thead>
+
+                            <tr>
+
+                                <th id="resultStudentHeader">
+                                    Ученик
+                                </th>
+
+                                <th id="resultTestHeader">
+                                    Тест
+                                </th>
+
+                                <th id="resultScoreHeader">
+                                    Результат
+                                </th>
+
+                                <th id="resultPassingHeader">
+                                    Порог
+                                </th>
+
+                                <th id="resultStatusHeader">
+                                    Статус
+                                </th>
+
+                                <th id="resultDateHeader">
+                                    Дата
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="classResultsTableBody">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ANALYTICS -->
+
+        <section
+            id="section-analytics"
+            class="class-section d-none"
+        >
+
+            <!-- ANALYTICS CARDS -->
+
+            <div class="row g-4 mb-4">
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="overview-card h-100">
+
+                        <div class="overview-icon">
+                            <i class="bi bi-graph-up"></i>
+                        </div>
+
+                        <p id="analyticsAverageLabel">
+                            Средний результат
+                        </p>
+
+                        <h2 id="analyticsAverage">
+                            —
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="overview-card h-100">
+
+                        <div class="overview-icon">
+                            <i class="bi bi-trophy"></i>
+                        </div>
+
+                        <p id="analyticsBestLabel">
+                            Лучший результат
+                        </p>
+
+                        <h2 id="analyticsBest">
+                            —
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="overview-card h-100">
+
+                        <div class="overview-icon">
+                            <i class="bi bi-check-circle"></i>
+                        </div>
+
+                        <p id="analyticsPassRateLabel">
+                            Успешно пройдено
+                        </p>
+
+                        <h2 id="analyticsPassRate">
+                            —
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="overview-card h-100">
+
+                        <div class="overview-icon">
+                            <i class="bi bi-clipboard-data"></i>
+                        </div>
+
+                        <p id="analyticsCompletedLabel">
+                            Завершено тестов
+                        </p>
+
+                        <h2 id="analyticsCompleted">
+                            0
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ANALYTICS DETAILS -->
+
+            <div class="content-card">
+
+                <h4
+                    id="analyticsTitle"
+                    class="fw-bold mb-1"
+                >
+                    Аналитика класса
+                </h4>
+
+                <p
+                    id="analyticsDescription"
+                    class="text-secondary mb-4"
+                >
+                    Общие показатели по результатам учеников этого класса
+                </p>
+
+
+                <div
+                    id="analyticsEmpty"
+                    class="text-center py-5 d-none"
+                >
+
+                    <i
+                        class="bi bi-graph-up-arrow fs-1 text-secondary"
+                    ></i>
+
+                    <h5
+                        id="analyticsEmptyTitle"
+                        class="fw-bold mt-3"
+                    >
+                        Недостаточно данных
+                    </h5>
+
+                    <p
+                        id="analyticsEmptyText"
+                        class="text-secondary mb-0"
+                    >
+                        Аналитика появится после прохождения тестов учениками.
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="analyticsContent"
+                    class="d-none"
+                >
+
+                    <div class="row g-4">
+
+                        <div class="col-md-6">
+
+                            <div
+                                class="border rounded-4 p-4 h-100"
+                            >
+
+                                <p
+                                    id="analyticsPassedLabel"
+                                    class="text-secondary mb-2"
+                                >
+                                    Пройдено
+                                </p>
+
+                                <h3
+                                    id="analyticsPassed"
+                                    class="fw-bold text-success mb-0"
+                                >
+                                    0
+                                </h3>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <div
+                                class="border rounded-4 p-4 h-100"
+                            >
+
+                                <p
+                                    id="analyticsFailedLabel"
+                                    class="text-secondary mb-2"
+                                >
+                                    Не пройдено
+                                </p>
+
+                                <h3
+                                    id="analyticsFailed"
+                                    class="fw-bold text-danger mb-0"
+                                >
+                                    0
+                                </h3>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+<script src="js/language.js"></script>
+<script src="js/staff-class.js"></script>
+
+</body>
+
+</html>

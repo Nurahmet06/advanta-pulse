@@ -1,54 +1,296 @@
 /* =========================================================
    ADVANTA PULSE
-   REAL STUDENT TEST
+   STUDENT TEST
    ========================================================= */
 
 
 /* =========================================================
-   НАХОДИМ ВЫБРАННЫЙ ТЕСТ
+   STORAGE HELPERS
    ========================================================= */
 
+function getStorageArray(key) {
+
+    try {
+
+        const data =
+            JSON.parse(
+                localStorage.getItem(key)
+            );
+
+        return Array.isArray(data)
+            ? data
+            : [];
+
+    } catch (error) {
+
+        return [];
+    }
+}
+
+
+function getStorageObject(key) {
+
+    try {
+
+        const data =
+            JSON.parse(
+                localStorage.getItem(key)
+            );
+
+        return (
+            data &&
+            typeof data === "object"
+        )
+            ? data
+            : null;
+
+    } catch (error) {
+
+        return null;
+    }
+}
+
+
+/* =========================================================
+   LANGUAGE
+   ========================================================= */
+
+function getLanguage() {
+
+    if (
+        typeof getCurrentLanguage === "function"
+    ) {
+
+        return getCurrentLanguage();
+    }
+
+
+    return (
+        localStorage.getItem("language")
+        ||
+        "ru"
+    );
+}
+
+
+function uiText(key) {
+
+    const language =
+        getLanguage();
+
+
+    const texts = {
+
+        ru: {
+
+            testNotFound:
+                "Тест не найден",
+
+            noQuestions:
+                "В этом тесте нет вопросов",
+
+            accessDenied:
+                "Этот тест назначен другому классу",
+
+            testUnavailable:
+                "Этот тест сейчас недоступен",
+
+            alreadyCompleted:
+                "Вы уже прошли этот тест",
+
+            answerAll:
+                "Ответьте на все вопросы",
+
+            question:
+                "Вопрос",
+
+            of:
+                "из",
+
+            mathematics:
+                "Математика",
+
+            timeExpired:
+                "Время вышло. Тест будет отправлен автоматически."
+
+        },
+
+
+        kz: {
+
+            testNotFound:
+                "Тест табылмады",
+
+            noQuestions:
+                "Бұл тестте сұрақтар жоқ",
+
+            accessDenied:
+                "Бұл тест басқа сыныпқа тағайындалған",
+
+            testUnavailable:
+                "Бұл тест қазір қолжетімсіз",
+
+            alreadyCompleted:
+                "Сіз бұл тестті өтіп қойдыңыз",
+
+            answerAll:
+                "Барлық сұрақтарға жауап беріңіз",
+
+            question:
+                "Сұрақ",
+
+            of:
+                "/",
+
+            mathematics:
+                "Математика",
+
+            timeExpired:
+                "Уақыт аяқталды. Тест автоматты түрде жіберіледі."
+
+        },
+
+
+        en: {
+
+            testNotFound:
+                "Test not found",
+
+            noQuestions:
+                "This test has no questions",
+
+            accessDenied:
+                "This test is assigned to another class",
+
+            testUnavailable:
+                "This test is currently unavailable",
+
+            alreadyCompleted:
+                "You have already completed this test",
+
+            answerAll:
+                "Please answer all questions",
+
+            question:
+                "Question",
+
+            of:
+                "of",
+
+            mathematics:
+                "Mathematics",
+
+            timeExpired:
+                "Time is up. The test will be submitted automatically."
+        }
+    };
+
+
+    return (
+        texts[language]?.[key]
+        ||
+        texts.ru[key]
+        ||
+        key
+    );
+}
+
+
+/* =========================================================
+   CURRENT STUDENT
+   ========================================================= */
+
+function getCurrentStudent() {
+
+    const student =
+        getStorageObject(
+            "advantaCurrentStudent"
+        );
+
+
+    if (
+        student &&
+        student.role === "student"
+    ) {
+
+        return student;
+    }
+
+
+    const user =
+        getStorageObject(
+            "advantaCurrentUser"
+        );
+
+
+    if (
+        user &&
+        user.role === "student"
+    ) {
+
+        return user;
+    }
+
+
+    return null;
+}
+
+
+const currentStudent =
+    getCurrentStudent();
+
+
+if (!currentStudent) {
+
+    window.location.href =
+        "index.html";
+
+    throw new Error(
+        "Student session not found"
+    );
+}
+
+
+/* =========================================================
+   TEST ID
+   ========================================================= */
+
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
 const currentTestId =
+    urlParams.get("id")
+    ||
     localStorage.getItem(
         "currentStudentTestId"
     );
 
 
+/* =========================================================
+   TEST
+   ========================================================= */
+
 const allTests =
-    JSON.parse(
-        localStorage.getItem(
-            "advantaTests"
-        )
-    ) || [];
+    getStorageArray(
+        "advantaTests"
+    );
 
 
 const currentTest =
     allTests.find(
-        function (test) {
-
-            return (
-                String(test.id)
-                ===
-                String(currentTestId)
-            );
-
-        }
+        test =>
+            String(test.id) ===
+            String(currentTestId)
     );
 
-
-/*
-   Если ученик каким-то образом
-   открыл test.html без выбранного теста.
-*/
 
 if (!currentTest) {
 
     alert(
-        getCurrentLanguage() === "kz"
-            ? "Тест табылмады"
-            : getCurrentLanguage() === "en"
-                ? "Test not found"
-                : "Тест не найден"
+        uiText("testNotFound")
     );
 
 
@@ -58,6 +300,95 @@ if (!currentTest) {
 
     throw new Error(
         "Test not found"
+    );
+}
+
+
+/* =========================================================
+   SECURITY — CLASS
+   ========================================================= */
+
+function testBelongsToStudentClass() {
+
+    if (
+        currentTest.classId
+    ) {
+
+        return (
+            String(currentTest.classId) ===
+            String(currentStudent.classId)
+        );
+    }
+
+
+    if (
+        currentTest.className &&
+        currentStudent.className
+    ) {
+
+        return (
+            currentTest.className ===
+            currentStudent.className
+        );
+    }
+
+
+    if (
+        Array.isArray(
+            currentTest.classIds
+        )
+    ) {
+
+        return currentTest.classIds.some(
+            classId =>
+                String(classId) ===
+                String(currentStudent.classId)
+        );
+    }
+
+
+    return false;
+}
+
+
+if (
+    !testBelongsToStudentClass()
+) {
+
+    alert(
+        uiText("accessDenied")
+    );
+
+
+    window.location.href =
+        "student-tasks.html";
+
+
+    throw new Error(
+        "Wrong class"
+    );
+}
+
+
+/* =========================================================
+   PUBLISHED
+   ========================================================= */
+
+if (
+    currentTest.status !== "published"
+) {
+
+    alert(
+        uiText("testUnavailable")
+    );
+
+
+    window.location.href =
+        "student-tasks.html";
+
+
+    throw new Error(
+        "Test is not published"
     );
 }
 
@@ -79,11 +410,7 @@ if (
 ) {
 
     alert(
-        getCurrentLanguage() === "kz"
-            ? "Бұл тестте сұрақтар жоқ"
-            : getCurrentLanguage() === "en"
-                ? "This test has no questions"
-                : "В этом тесте нет вопросов"
+        uiText("noQuestions")
     );
 
 
@@ -92,7 +419,80 @@ if (
 
 
     throw new Error(
-        "Test has no questions"
+        "No questions"
+    );
+}
+
+
+/* =========================================================
+   RESULT CHECK
+   ========================================================= */
+
+function getStudentResults() {
+
+    return getStorageArray(
+        "advantaResults"
+    );
+}
+
+
+function alreadyCompleted() {
+
+    const results =
+        getStudentResults();
+
+
+    return results.some(
+        result => {
+
+            const sameTest =
+                String(result.testId) ===
+                String(currentTest.id);
+
+
+            const sameStudent =
+                (
+                    result.studentId &&
+                    String(result.studentId) ===
+                    String(currentStudent.id)
+                )
+                ||
+                (
+                    result.userId &&
+                    String(result.userId) ===
+                    String(currentStudent.id)
+                );
+
+
+            return (
+                sameTest &&
+                sameStudent
+            );
+        }
+    );
+}
+
+
+/*
+   Если тест уже реально пройден,
+   повторно его не запускаем.
+*/
+
+if (
+    alreadyCompleted()
+) {
+
+    alert(
+        uiText("alreadyCompleted")
+    );
+
+
+    window.location.href =
+        "student-results.html";
+
+
+    throw new Error(
+        "Test already completed"
     );
 }
 
@@ -103,26 +503,30 @@ if (
 
 let currentQuestionIndex = 0;
 
+let testSubmitted = false;
+
+let timerInterval = null;
+
 
 /*
-   Ответы ученика.
-
-   Пример:
-
-   {
-       1: 0,
-       2: 3
-   }
-
-   где:
-   1 = номер вопроса
-   0 = выбран вариант A
+   Ответы храним ещё и в localStorage,
+   чтобы F5 не уничтожил ответы.
 */
 
-const studentAnswers = {};
+const answersStorageKey =
+    `advantaTestAnswers_${currentStudent.id}_${currentTest.id}`;
 
 
-let testSubmitted = false;
+const savedAnswers =
+    getStorageObject(
+        answersStorageKey
+    );
+
+
+const studentAnswers =
+    savedAnswers
+        ? { ...savedAnswers }
+        : {};
 
 
 /* =========================================================
@@ -201,35 +605,141 @@ const confirmFinishBtn =
     );
 
 
+const timer =
+    document.getElementById(
+        "timer"
+    );
+
+
+const timerBox =
+    document.getElementById(
+        "timerBox"
+    );
+
+
 /* =========================================================
-   TEST INFORMATION
+   SUBJECT
+   ========================================================= */
+
+function getSubjectName() {
+
+    const subject =
+        currentTest.subject
+        ||
+        currentTest.subjectId;
+
+
+    if (
+        subject === "math"
+    ) {
+
+        return uiText(
+            "mathematics"
+        );
+    }
+
+
+    if (
+        subject &&
+        typeof t === "function"
+    ) {
+
+        const translated =
+            t(subject);
+
+
+        if (
+            translated &&
+            translated !== subject
+        ) {
+
+            return translated;
+        }
+    }
+
+
+    return (
+        currentTest.subjectName
+        ||
+        subject
+        ||
+        uiText("mathematics")
+    );
+}
+
+
+/* =========================================================
+   TEST INFO
    ========================================================= */
 
 function renderTestInformation() {
 
-    /*
-       Название предмета переводится
-       через общий language.js.
-    */
-
     testSubject.textContent =
-        t(currentTest.subject);
+        getSubjectName();
 
-
-    /*
-       Название самого теста
-       НЕ переводим автоматически.
-
-       Оно остаётся именно таким,
-       каким его написал учитель.
-    */
 
     testTitle.textContent =
-        currentTest.name;
+        currentTest.name
+        ||
+        currentTest.title
+        ||
+        "Test";
 
 
     testPassingScore.textContent =
-        `${currentTest.passingScore}/100`;
+        `${
+            Number(
+                currentTest.passingScore
+                ??
+                60
+            )
+        }/100`;
+}
+
+
+/* =========================================================
+   SAFE HTML
+   ========================================================= */
+
+function escapeHtml(value) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        String(
+            value ?? ""
+        );
+
+
+    return div.innerHTML;
+}
+
+
+/* =========================================================
+   QUESTION ID
+   ========================================================= */
+
+function getQuestionKey(
+    question,
+    index
+) {
+
+    if (
+        question.id !== undefined &&
+        question.id !== null
+    ) {
+
+        return String(
+            question.id
+        );
+    }
+
+
+    return String(index);
 }
 
 
@@ -245,32 +755,36 @@ function renderQuestion() {
         ];
 
 
+    const questionKey =
+        getQuestionKey(
+            question,
+            currentQuestionIndex
+        );
+
+
     const displayNumber =
         currentQuestionIndex + 1;
 
 
-    /* COUNTER */
-
     questionCounter.textContent =
-        `${t("question")} ${displayNumber} ${t("of")} ${questions.length}`;
+        `${uiText("question")} ${displayNumber} ${uiText("of")} ${questions.length}`;
 
 
     questionNumber.textContent =
         displayNumber;
 
 
-    /* QUESTION TEXT */
-
     questionText.textContent =
-        question.text;
+        question.text
+        ||
+        question.question
+        ||
+        "";
 
-
-    /* PROGRESS */
 
     const progress =
         (
-            displayNumber
-            /
+            displayNumber /
             questions.length
         )
         * 100;
@@ -280,16 +794,20 @@ function renderQuestion() {
         `${progress}%`;
 
 
-    /* CLEAR OPTIONS */
-
     answersContainer.innerHTML =
         "";
 
 
-    /* OPTIONS */
+    const options =
+        Array.isArray(
+            question.options
+        )
+            ? question.options
+            : [];
 
-    question.options.forEach(
-        function (optionText, optionIndex) {
+
+    options.forEach(
+        (optionText, optionIndex) => {
 
             const option =
                 document.createElement(
@@ -301,23 +819,24 @@ function renderQuestion() {
                 "answer-option";
 
 
-            /*
-               Если ученик уже отвечал,
-               подсвечиваем его выбор.
-            */
+            const selectedAnswer =
+                Number(
+                    studentAnswers[
+                        questionKey
+                    ]
+                );
+
 
             if (
                 studentAnswers[
-                    question.id
-                ]
-                ===
-                optionIndex
+                    questionKey
+                ] !== undefined &&
+                selectedAnswer === optionIndex
             ) {
 
                 option.classList.add(
                     "selected"
                 );
-
             }
 
 
@@ -328,26 +847,30 @@ function renderQuestion() {
                     name="studentAnswer"
                     value="${optionIndex}"
                     ${
-                        studentAnswers[question.id]
-                        ===
-                        optionIndex
+                        studentAnswers[
+                            questionKey
+                        ] !== undefined &&
+                        selectedAnswer === optionIndex
                             ? "checked"
                             : ""
                     }
                 >
 
-                <span
-                    class="answer-letter"
-                >
+                <span class="answer-letter">
+
                     ${String.fromCharCode(
                         65 + optionIndex
                     )}
+
                 </span>
 
                 <span>
-                    ${escapeHtml(optionText)}
-                </span>
 
+                    ${escapeHtml(
+                        optionText
+                    )}
+
+                </span>
             `;
 
 
@@ -356,37 +879,37 @@ function renderQuestion() {
                 function () {
 
                     studentAnswers[
-                        question.id
+                        questionKey
                     ] =
                         optionIndex;
 
 
-                    renderQuestion();
+                    localStorage.setItem(
+                        answersStorageKey,
+                        JSON.stringify(
+                            studentAnswers
+                        )
+                    );
 
+
+                    renderQuestion();
                 }
             );
 
 
-            answersContainer
-                .appendChild(
-                    option
-                );
-
+            answersContainer.appendChild(
+                option
+            );
         }
     );
 
-
-    /* BACK */
 
     prevBtn.disabled =
         currentQuestionIndex === 0;
 
 
-    /* LAST QUESTION */
-
     if (
-        currentQuestionIndex
-        ===
+        currentQuestionIndex ===
         questions.length - 1
     ) {
 
@@ -399,9 +922,7 @@ function renderQuestion() {
             "d-none"
         );
 
-    }
-
-    else {
+    } else {
 
         nextBtn.classList.remove(
             "d-none"
@@ -411,33 +932,12 @@ function renderQuestion() {
         finishBtn.classList.add(
             "d-none"
         );
-
     }
 }
 
 
 /* =========================================================
-   SAFE TEXT
-   ========================================================= */
-
-function escapeHtml(value) {
-
-    const div =
-        document.createElement(
-            "div"
-        );
-
-
-    div.textContent =
-        String(value ?? "");
-
-
-    return div.innerHTML;
-}
-
-
-/* =========================================================
-   NEXT
+   NAVIGATION
    ========================================================= */
 
 nextBtn.addEventListener(
@@ -445,25 +945,17 @@ nextBtn.addEventListener(
     function () {
 
         if (
-            currentQuestionIndex
-            <
+            currentQuestionIndex <
             questions.length - 1
         ) {
 
             currentQuestionIndex++;
 
-
             renderQuestion();
-
         }
-
     }
 );
 
-
-/* =========================================================
-   PREVIOUS
-   ========================================================= */
 
 prevBtn.addEventListener(
     "click",
@@ -475,17 +967,14 @@ prevBtn.addEventListener(
 
             currentQuestionIndex--;
 
-
             renderQuestion();
-
         }
-
     }
 );
 
 
 /* =========================================================
-   FINISH
+   FINISH BUTTON
    ========================================================= */
 
 finishBtn.addEventListener(
@@ -498,23 +987,14 @@ finishBtn.addEventListener(
             ).length;
 
 
-        /*
-           Пока требуем ответить
-           на каждый вопрос.
-        */
-
         if (
-            answeredCount
-            <
+            answeredCount <
             questions.length
         ) {
 
             alert(
-                t(
-                    "testNotAnswered"
-                )
+                uiText("answerAll")
             );
-
 
             return;
         }
@@ -529,13 +1009,84 @@ finishBtn.addEventListener(
 
 
         modal.show();
-
     }
 );
 
 
 /* =========================================================
-   CALCULATE RESULT
+   CORRECT ANSWER NORMALIZATION
+   ========================================================= */
+
+function getCorrectAnswerIndex(
+    question
+) {
+
+    const value =
+        question.correctAnswer;
+
+
+    /*
+      Normal current format:
+      0,1,2,3
+    */
+
+    if (
+        Number.isInteger(value)
+    ) {
+
+        return value;
+    }
+
+
+    /*
+      Support numeric string.
+    */
+
+    if (
+        value !== null &&
+        value !== undefined &&
+        value !== "" &&
+        !Number.isNaN(Number(value))
+    ) {
+
+        return Number(value);
+    }
+
+
+    /*
+      Support A/B/C/D.
+    */
+
+    if (
+        typeof value === "string"
+    ) {
+
+        const letter =
+            value
+                .trim()
+                .toUpperCase();
+
+
+        const index =
+            ["A", "B", "C", "D"]
+                .indexOf(letter);
+
+
+        if (
+            index !== -1
+        ) {
+
+            return index;
+        }
+    }
+
+
+    return -1;
+}
+
+
+/* =========================================================
+   CALCULATE SCORE
    ========================================================= */
 
 function calculateScore() {
@@ -544,37 +1095,46 @@ function calculateScore() {
 
 
     questions.forEach(
-        function (question) {
+        (question, index) => {
+
+            const questionKey =
+                getQuestionKey(
+                    question,
+                    index
+                );
+
 
             const studentAnswer =
-                studentAnswers[
-                    question.id
-                ];
+                Number(
+                    studentAnswers[
+                        questionKey
+                    ]
+                );
+
+
+            const correctAnswer =
+                getCorrectAnswerIndex(
+                    question
+                );
 
 
             if (
-                studentAnswer
-                ===
-                question.correctAnswer
+                studentAnswers[
+                    questionKey
+                ] !== undefined &&
+                studentAnswer === correctAnswer
             ) {
 
                 correctCount++;
-
             }
-
         }
     );
 
 
-    /*
-       Переводим в шкалу 100.
-    */
-
     const score =
         Math.round(
             (
-                correctCount
-                /
+                correctCount /
                 questions.length
             )
             * 100
@@ -582,14 +1142,13 @@ function calculateScore() {
 
 
     return {
-        correctCount:
-            correctCount,
+
+        correctCount,
 
         totalQuestions:
             questions.length,
 
-        score:
-            score
+        score
     };
 }
 
@@ -599,103 +1158,112 @@ function calculateScore() {
    ========================================================= */
 
 function saveStudentResult(
-    result
+    calculatedResult,
+    autoSubmitted = false
 ) {
-
-    const registeredStudent =
-        JSON.parse(
-            localStorage.getItem(
-                "registeredStudent"
-            )
-        );
-
-
-    const studentClass =
-        localStorage.getItem(
-            "studentClass"
-        ) || "5А";
-
 
     const passingScore =
         Number(
             currentTest.passingScore
+            ??
+            60
         );
 
 
     const passed =
-        result.score
-        >=
+        calculatedResult.score >=
         passingScore;
 
 
     const resultData = {
 
         id:
-            Date.now(),
+            `result_${Date.now()}`,
 
         testId:
             currentTest.id,
 
         testName:
-            currentTest.name,
+            currentTest.name
+            ||
+            currentTest.title
+            ||
+            "Test",
 
         subject:
-            currentTest.subject,
+            currentTest.subject
+            ||
+            currentTest.subjectId
+            ||
+            "math",
+
+        classId:
+            currentStudent.classId
+            ||
+            currentTest.classId
+            ||
+            null,
 
         className:
-            studentClass,
+            currentStudent.className
+            ||
+            currentTest.className
+            ||
+            "",
+
+
+        /* IMPORTANT */
+
+        studentId:
+            currentStudent.id,
+
+        userId:
+            currentStudent.id,
 
         studentFirstName:
-            registeredStudent?.firstName
-            || "Ученик",
+            currentStudent.firstName
+            ||
+            "",
 
         studentLastName:
-            registeredStudent?.lastName
-            || "",
+            currentStudent.lastName
+            ||
+            "",
+
 
         score:
-            result.score,
+            calculatedResult.score,
 
-        passingScore:
-            passingScore,
+        correctCount:
+            calculatedResult.correctCount,
 
-        passed:
-            passed,
+        totalQuestions:
+            calculatedResult.totalQuestions,
+
+        passingScore,
+
+        passed,
+
+        autoSubmitted,
 
         completedAt:
             new Date().toISOString()
-
     };
 
 
-    /*
-       Сохраняем результаты отдельно.
-
-       Позже вместо этого
-       будет настоящая база данных.
-    */
-
     const savedResults =
-        JSON.parse(
-            localStorage.getItem(
-                "advantaResults"
-            )
-        ) || [];
+        getStorageArray(
+            "advantaResults"
+        );
 
 
     /*
-       Пока один ученик
-       не должен создавать
-       бесконечные копии результата
-       одного и того же теста.
-
-       Если уже проходил —
-       обновим результат.
+      One result per student + test.
     */
 
     const existingIndex =
         savedResults.findIndex(
-            function (savedResult) {
+            savedResult => {
 
                 return (
                     String(
@@ -706,15 +1274,18 @@ function saveStudentResult(
                         currentTest.id
                     )
                     &&
-                    savedResult.studentFirstName
-                    ===
-                    resultData.studentFirstName
-                    &&
-                    savedResult.studentLastName
-                    ===
-                    resultData.studentLastName
+                    (
+                        String(
+                            savedResult.studentId
+                            ||
+                            savedResult.userId
+                        )
+                        ===
+                        String(
+                            currentStudent.id
+                        )
+                    )
                 );
-
             }
         );
 
@@ -728,14 +1299,11 @@ function saveStudentResult(
         ] =
             resultData;
 
-    }
-
-    else {
+    } else {
 
         savedResults.push(
             resultData
         );
-
     }
 
 
@@ -748,22 +1316,57 @@ function saveStudentResult(
 
 
     /*
-       Пока оставляем и это,
-       чтобы текущая страница
-       test-completed.html
-       уже могла показать балл.
+      Last result for completed page.
+    */
+
+    localStorage.setItem(
+        "advantaLastResult",
+        JSON.stringify(
+            resultData
+        )
+    );
+
+
+    /*
+      Compatibility with old completed page.
     */
 
     localStorage.setItem(
         "demoLastScore",
-        result.score
+        String(
+            calculatedResult.score
+        )
     );
 
 
     localStorage.setItem(
         "lastCompletedTestId",
-        currentTest.id
+        String(
+            currentTest.id
+        )
     );
+
+
+    /*
+      Clear temporary progress.
+    */
+
+    localStorage.removeItem(
+        answersStorageKey
+    );
+
+
+    localStorage.removeItem(
+        getTimerStorageKey()
+    );
+
+
+    localStorage.removeItem(
+        "currentStudentTestId"
+    );
+
+
+    return resultData;
 }
 
 
@@ -771,9 +1374,14 @@ function saveStudentResult(
    SUBMIT
    ========================================================= */
 
-function submitTest() {
+function submitTest(
+    autoSubmitted = false
+) {
 
-    if (testSubmitted) {
+    if (
+        testSubmitted
+    ) {
+
         return;
     }
 
@@ -781,12 +1389,23 @@ function submitTest() {
     testSubmitted = true;
 
 
-    const result =
+    if (
+        timerInterval
+    ) {
+
+        clearInterval(
+            timerInterval
+        );
+    }
+
+
+    const calculatedResult =
         calculateScore();
 
 
     saveStudentResult(
-        result
+        calculatedResult,
+        autoSubmitted
     );
 
 
@@ -796,15 +1415,14 @@ function submitTest() {
 
 
 /* =========================================================
-   CONFIRM SUBMIT
+   CONFIRM FINISH
    ========================================================= */
 
 confirmFinishBtn.addEventListener(
     "click",
     function () {
 
-        submitTest();
-
+        submitTest(false);
     }
 );
 
@@ -813,78 +1431,237 @@ confirmFinishBtn.addEventListener(
    TIMER
    ========================================================= */
 
+function getTimerStorageKey() {
+
+    return (
+        `advantaTestStarted_${currentStudent.id}_${currentTest.id}`
+    );
+}
+
 
 /*
-   Пока фиксировано 20 минут.
-
-   Потом добавим учителю отдельное поле:
-   "Время на тест".
+   IMPORTANT:
+   We now use the time set by the teacher.
 */
 
-let remainingSeconds =
-    20 * 60;
+function getTimeLimitMinutes() {
+
+    const value =
+        currentTest.timeLimit;
 
 
-function updateTimer() {
+    if (
+        value === null ||
+        value === undefined ||
+        value === ""
+    ) {
+
+        return null;
+    }
+
+
+    const minutes =
+        Number(value);
+
+
+    if (
+        !Number.isFinite(minutes) ||
+        minutes <= 0
+    ) {
+
+        return null;
+    }
+
+
+    return minutes;
+}
+
+
+function formatTimer(
+    totalSeconds
+) {
+
+    const safeSeconds =
+        Math.max(
+            0,
+            Math.floor(
+                totalSeconds
+            )
+        );
+
 
     const minutes =
         Math.floor(
-            remainingSeconds
-            /
-            60
+            safeSeconds / 60
         );
 
 
     const seconds =
-        remainingSeconds
-        %
-        60;
+        safeSeconds % 60;
 
 
-    document
-        .getElementById(
-            "timer"
-        )
-        .textContent =
-        `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    return (
+        `${String(minutes).padStart(2, "0")}:` +
+        `${String(seconds).padStart(2, "0")}`
+    );
+}
+
+
+function startTimer() {
+
+    const timeLimitMinutes =
+        getTimeLimitMinutes();
 
 
     /*
-       Если время вышло —
-       тест отправляется автоматически.
-
-       Неотвеченные вопросы
-       считаются неправильными.
+      Unlimited test.
     */
 
     if (
-        remainingSeconds <= 0
+        timeLimitMinutes === null
     ) {
 
-        clearInterval(
-            timerInterval
+        timerBox.classList.add(
+            "d-none"
         );
-
-
-        submitTest();
-
 
         return;
     }
 
 
-    remainingSeconds--;
-}
-
-
-const timerInterval =
-    setInterval(
-        updateTimer,
-        1000
+    timerBox.classList.remove(
+        "d-none"
     );
 
 
-updateTimer();
+    const timerStorageKey =
+        getTimerStorageKey();
+
+
+    let startedAt =
+        Number(
+            localStorage.getItem(
+                timerStorageKey
+            )
+        );
+
+
+    /*
+      First opening of this test.
+    */
+
+    if (
+        !Number.isFinite(startedAt) ||
+        startedAt <= 0
+    ) {
+
+        startedAt =
+            Date.now();
+
+
+        localStorage.setItem(
+            timerStorageKey,
+            String(startedAt)
+        );
+    }
+
+
+    const totalMilliseconds =
+        timeLimitMinutes
+        *
+        60
+        *
+        1000;
+
+
+    function tick() {
+
+        if (
+            testSubmitted
+        ) {
+
+            return;
+        }
+
+
+        const elapsed =
+            Date.now() -
+            startedAt;
+
+
+        const remainingMilliseconds =
+            totalMilliseconds -
+            elapsed;
+
+
+        const remainingSeconds =
+            Math.max(
+                0,
+                Math.ceil(
+                    remainingMilliseconds /
+                    1000
+                )
+            );
+
+
+        timer.textContent =
+            formatTimer(
+                remainingSeconds
+            );
+
+
+        /*
+          Last minute warning.
+        */
+
+        if (
+            remainingSeconds <= 60
+        ) {
+
+            timerBox.style.background =
+                "rgba(220, 53, 69, 0.95)";
+
+            timerBox.style.color =
+                "#ffffff";
+        }
+
+
+        /*
+          Time expired.
+        */
+
+        if (
+            remainingMilliseconds <= 0
+        ) {
+
+            if (
+                timerInterval
+            ) {
+
+                clearInterval(
+                    timerInterval
+                );
+            }
+
+
+            timer.textContent =
+                "00:00";
+
+
+            submitTest(true);
+        }
+    }
+
+
+    tick();
+
+
+    timerInterval =
+        setInterval(
+            tick,
+            250
+        );
+}
 
 
 /* =========================================================
@@ -895,18 +1672,9 @@ window.addEventListener(
     "languageChanged",
     function () {
 
-        /*
-           Переводим только интерфейс
-           и название предмета.
-
-           Вопросы учителя
-           НЕ переводим автоматически.
-        */
-
         renderTestInformation();
 
         renderQuestion();
-
     }
 );
 
@@ -918,3 +1686,5 @@ window.addEventListener(
 renderTestInformation();
 
 renderQuestion();
+
+startTimer();

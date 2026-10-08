@@ -11,30 +11,20 @@
 
     <title>ADVANTA Pulse — Student</title>
 
-
-    <!-- Bootstrap -->
-
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet"
     >
-
-
-    <!-- Bootstrap Icons -->
 
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     >
 
-
-    <!-- CSS -->
-
     <link
         rel="stylesheet"
         href="css/style.css"
     >
-
 </head>
 
 
@@ -43,264 +33,178 @@
 <div class="student-layout">
 
 
-    <!-- ================================================= -->
-    <!-- SIDEBAR                                           -->
-    <!-- ================================================= -->
+    <!-- SIDEBAR -->
 
     <aside class="student-sidebar">
 
-
         <div class="student-logo">
-
             ADVANTA <span>Pulse</span>
-
         </div>
 
 
         <nav class="student-nav">
 
-
-            <!-- HOME -->
-
             <a
                 href="student-home.html"
                 class="student-nav-link active"
             >
-
                 <i class="bi bi-house"></i>
 
-                <span data-i18n="home">
-
+                <span id="menuHome">
                     Главная
-
                 </span>
-
             </a>
 
-
-
-            <!-- TASKS -->
 
             <a
                 href="student-tasks.html"
                 class="student-nav-link"
             >
-
                 <i class="bi bi-clipboard-check"></i>
 
-                <span data-i18n="tasks">
-
+                <span id="menuTasks">
                     Задания
-
                 </span>
-
             </a>
 
-
-
-            <!-- RESULTS -->
 
             <a
                 href="student-results.html"
                 class="student-nav-link"
             >
-
                 <i class="bi bi-bar-chart"></i>
 
-                <span data-i18n="results">
-
+                <span id="menuResults">
                     Мои результаты
-
                 </span>
-
             </a>
-
 
         </nav>
 
 
-
-        <!-- LOGOUT -->
-
         <a
-            href="index.html"
+            href="#"
+            id="logoutButton"
             class="student-nav-link logout-link"
         >
-
             <i class="bi bi-box-arrow-left"></i>
 
-            <span data-i18n="logout">
-
+            <span id="logoutText">
                 Выйти
-
             </span>
-
         </a>
-
 
     </aside>
 
 
 
-    <!-- ================================================= -->
-    <!-- MAIN                                              -->
-    <!-- ================================================= -->
+    <!-- MAIN -->
 
     <main class="student-main">
 
 
-        <!-- ================================================= -->
-        <!-- HEADER                                            -->
-        <!-- ================================================= -->
+        <!-- HEADER -->
 
         <div class="student-header">
 
-
             <div>
 
-
                 <p
+                    id="welcomeText"
                     class="student-welcome"
-                    data-i18n="welcome"
                 >
-
                     Добро пожаловать
-
                 </p>
 
 
-
-                <!-- REAL STUDENT NAME -->
-
                 <h2
-                    id="studentHomeName"
+                    id="studentName"
                     class="fw-bold mb-1"
                 >
-
-                    Ученик
-
+                    —
                 </h2>
 
 
-
-                <!-- REAL CLASS -->
-
                 <p
-                    id="studentHomeClass"
+                    id="studentClass"
                     class="text-secondary mb-0"
                 >
-
-                    5А класс
-
+                    —
                 </p>
-
 
             </div>
 
 
-
-            <!-- LANGUAGE + PROFILE -->
-
-            <div
-                class="d-flex align-items-center gap-3"
-            >
-
+            <div class="d-flex align-items-center gap-3">
 
                 <select
                     id="languageSelect"
                     class="form-select language-select"
                 >
-
-                    <option value="ru">
-                        RU
-                    </option>
-
-                    <option value="kz">
-                        KZ
-                    </option>
-
-                    <option value="en">
-                        EN
-                    </option>
-
+                    <option value="ru">RU</option>
+                    <option value="kz">KZ</option>
+                    <option value="en">EN</option>
                 </select>
 
 
                 <div class="student-avatar">
-
                     <i class="bi bi-person"></i>
-
                 </div>
 
-
             </div>
-
 
         </div>
 
 
 
-        <!-- ================================================= -->
-        <!-- PAGE TITLE                                        -->
-        <!-- ================================================= -->
+        <!-- TITLE -->
 
-        <h3
-            class="mb-4 fw-bold"
-            data-i18n="home"
-        >
+        <div class="mb-4">
 
-            Главная
+            <h3
+                id="pageTitle"
+                class="fw-bold mb-0"
+            >
+                Главная
+            </h3>
 
-        </h3>
+        </div>
 
 
 
-        <!-- ================================================= -->
-        <!-- SUMMARY CARDS                                     -->
-        <!-- ================================================= -->
+        <!-- STATISTICS -->
 
-        <div class="row g-4">
+        <div class="row g-4 mb-4">
 
 
             <!-- ACTIVE TASKS -->
 
-            <div class="col-md-4">
+            <div class="col-lg-4">
 
-                <div class="overview-card">
-
+                <div class="overview-card h-100">
 
                     <div class="overview-icon">
-
                         <i class="bi bi-clipboard-check"></i>
-
                     </div>
 
 
-                    <p data-i18n="activeTasks">
-
+                    <p id="activeTasksLabel">
                         Активные задания
-
                     </p>
 
 
-                    <!-- REAL VALUE -->
-
-                    <h2 id="homeActiveTasks">
-
+                    <h2 id="activeTasksCount">
                         0
-
                     </h2>
 
 
                     <a
                         href="student-tasks.html"
-                        data-i18n="goToTasks"
+                        id="goToTasks"
+                        class="text-decoration-none small"
                     >
-
                         Перейти к заданиям
-
                     </a>
-
 
                 </div>
 
@@ -308,45 +212,34 @@
 
 
 
-            <!-- AVERAGE RESULT -->
+            <!-- AVERAGE -->
 
-            <div class="col-md-4">
+            <div class="col-lg-4">
 
-                <div class="overview-card">
-
+                <div class="overview-card h-100">
 
                     <div class="overview-icon">
-
                         <i class="bi bi-graph-up"></i>
-
                     </div>
 
 
-                    <p data-i18n="averageResult">
-
+                    <p id="averageLabel">
                         Средний результат
-
                     </p>
 
 
-                    <!-- REAL VALUE -->
-
-                    <h2 id="homeAverageScore">
-
-                        0/100
-
+                    <h2 id="averageResult">
+                        —
                     </h2>
 
 
                     <a
                         href="student-results.html"
-                        data-i18n="allResults"
+                        id="allResultsLink"
+                        class="text-decoration-none small"
                     >
-
                         Все результаты
-
                     </a>
-
 
                 </div>
 
@@ -354,45 +247,34 @@
 
 
 
-            <!-- BEST RESULT -->
+            <!-- BEST -->
 
-            <div class="col-md-4">
+            <div class="col-lg-4">
 
-                <div class="overview-card">
-
+                <div class="overview-card h-100">
 
                     <div class="overview-icon">
-
                         <i class="bi bi-trophy"></i>
-
                     </div>
 
 
-                    <p data-i18n="bestResult">
-
+                    <p id="bestLabel">
                         Лучший результат
-
                     </p>
 
 
-                    <!-- REAL VALUE -->
-
-                    <h2 id="homeBestScore">
-
-                        0/100
-
+                    <h2 id="bestResult">
+                        —
                     </h2>
 
 
                     <a
                         href="student-results.html"
-                        data-i18n="view"
+                        id="bestResultsLink"
+                        class="text-decoration-none small"
                     >
-
                         Посмотреть
-
                     </a>
-
 
                 </div>
 
@@ -403,43 +285,137 @@
 
 
 
-        <!-- ================================================= -->
-        <!-- UPCOMING TEST                                     -->
-        <!-- ================================================= -->
+        <!-- ACTIVE TESTS -->
 
-        <div
-            id="homeUpcomingSection"
-            class="content-card mt-4"
-        >
+        <div class="content-card mb-4">
+
+            <div
+                class="d-flex justify-content-between align-items-center mb-4"
+            >
+
+                <div>
+
+                    <h4
+                        id="activeTestsTitle"
+                        class="fw-bold mb-1"
+                    >
+                        Активные задания
+                    </h4>
 
 
-            <!-- JS заполнит содержимое -->
+                    <p
+                        id="activeTestsDescription"
+                        class="text-secondary mb-0"
+                    >
+                        Тесты, назначенные вашему классу
+                    </p>
 
-            <div id="homeUpcomingContent">
+                </div>
 
             </div>
 
+
+
+            <!-- EMPTY -->
+
+            <div
+                id="testsEmpty"
+                class="text-center py-5"
+            >
+
+                <i
+                    class="bi bi-clipboard-check fs-1 text-secondary"
+                ></i>
+
+
+                <h5
+                    id="emptyTestsTitle"
+                    class="mt-3"
+                >
+                    Нет активных заданий
+                </h5>
+
+
+                <p
+                    id="emptyTestsText"
+                    class="text-secondary mb-0"
+                >
+                    Новые тесты появятся здесь
+                </p>
+
+            </div>
+
+
+
+            <!-- TESTS -->
+
+            <div
+                id="activeTestsContainer"
+                class="d-flex flex-column gap-3"
+            >
+            </div>
 
         </div>
 
 
 
-        <!-- ================================================= -->
-        <!-- LAST RESULT                                       -->
-        <!-- ================================================= -->
+        <!-- LAST RESULT -->
 
         <div
-            id="homeLastResultSection"
-            class="content-card mt-4"
+            id="lastResultCard"
+            class="content-card d-none"
         >
 
+            <p
+                id="lastResultLabel"
+                class="text-secondary mb-3"
+            >
+                Последний результат
+            </p>
 
-            <!-- JS заполнит содержимое -->
 
-            <div id="homeLastResultContent">
+            <div
+                class="d-flex align-items-center gap-3"
+            >
+
+                <div
+                    id="lastScoreCircle"
+                    class="border rounded-circle d-flex align-items-center justify-content-center"
+                    style="width:70px;height:70px;"
+                >
+                    <strong id="lastScore">
+                        —
+                    </strong>
+                </div>
+
+
+                <div>
+
+                    <h5
+                        id="lastTestName"
+                        class="fw-bold mb-1"
+                    >
+                        —
+                    </h5>
+
+
+                    <p
+                        id="lastTestSubject"
+                        class="text-secondary mb-1"
+                    >
+                        —
+                    </p>
+
+
+                    <span
+                        id="lastTestStatus"
+                        class="small"
+                    >
+                    </span>
+
+                </div>
 
             </div>
-
 
         </div>
 
@@ -449,21 +425,8 @@
 </div>
 
 
-
-<!-- ===================================================== -->
-<!-- LANGUAGE                                              -->
-<!-- ===================================================== -->
-
 <script src="js/language.js"></script>
-
-
-
-<!-- ===================================================== -->
-<!-- REAL HOME DATA                                       -->
-<!-- ===================================================== -->
-
 <script src="js/student-home.js"></script>
-
 
 </body>
 

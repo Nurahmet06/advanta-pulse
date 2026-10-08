@@ -83,7 +83,8 @@
 
 
         <a
-            href="index.html"
+            href="#"
+            id="logoutButton"
             class="student-nav-link logout-link"
         >
             <i class="bi bi-box-arrow-left"></i>
@@ -116,16 +117,32 @@
                 </h2>
 
                 <p
+                    id="assignedTestsText"
                     class="text-secondary mb-0"
-                    data-i18n="assignedTests"
                 >
-                    Назначенные вам срезы
+                    Назначенные вашему классу срезы
                 </p>
 
             </div>
 
 
             <div class="d-flex align-items-center gap-3">
+
+                <div class="text-end d-none d-md-block">
+
+                    <strong id="studentName">
+                        —
+                    </strong>
+
+                    <div
+                        id="studentClass"
+                        class="small text-secondary"
+                    >
+                        —
+                    </div>
+
+                </div>
+
 
                 <select
                     id="languageSelect"
@@ -147,18 +164,13 @@
 
 
 
-        <!--
-            СЮДА JS АВТОМАТИЧЕСКИ
-            ДОБАВИТ НАЗНАЧЕННЫЕ ТЕСТЫ
-        -->
+        <!-- TASKS -->
 
-        <div id="studentTasksContainer">
-
-        </div>
+        <div id="studentTasksContainer"></div>
 
 
 
-        <!-- ЕСЛИ ЗАДАНИЙ НЕТ -->
+        <!-- EMPTY -->
 
         <div
             id="noStudentTasks"
@@ -173,12 +185,14 @@
                 "
             ></i>
 
+
             <h5
                 id="noTasksTitle"
                 class="fw-bold mt-3"
             >
-                Нет назначенных заданий
+                Нет активных заданий
             </h5>
+
 
             <p
                 id="noTasksText"
@@ -196,9 +210,7 @@
 
 
 <script src="js/language.js"></script>
-
 <script src="js/student-tasks.js"></script>
-
 
 </body>
 

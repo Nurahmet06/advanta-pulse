@@ -69,20 +69,8 @@
 
 
             <a
-                href="create-test.html"
-                class="student-nav-link active"
-            >
-                <i class="bi bi-plus-circle"></i>
-
-                <span data-i18n="createTest">
-                    Создать тест
-                </span>
-            </a>
-
-
-            <a
                 href="staff-classes.html"
-                class="student-nav-link"
+                class="student-nav-link active"
             >
                 <i class="bi bi-people"></i>
 
@@ -145,13 +133,16 @@
             <div>
 
                 <h2
+                    id="pageTitle"
                     class="fw-bold mb-1"
-                    data-i18n="createTest"
                 >
                     Создать тест
                 </h2>
 
-                <p class="text-secondary mb-0">
+                <p
+                    id="pageSubtitle"
+                    class="text-secondary mb-0"
+                >
                     ADVANTA Pulse
                 </p>
 
@@ -180,260 +171,379 @@
 
 
 
-        <!-- TEST SETTINGS -->
+        <!-- BACK -->
 
-        <div class="content-card mb-4">
+        <div class="mb-4">
 
-            <h4 class="fw-bold mb-4">
-                <span data-i18n="createTest">
-                    Создать тест
+            <a
+                id="backToClass"
+                href="staff-classes.html"
+                class="text-decoration-none"
+            >
+                <i class="bi bi-arrow-left me-1"></i>
+
+                <span id="backText">
+                    Назад в класс
                 </span>
-            </h4>
-
-
-            <div class="row g-3">
-
-
-                <!-- TEST NAME -->
-
-                <div class="col-md-6">
-
-                    <label
-                        class="form-label"
-                        data-i18n="testName"
-                    >
-                        Название теста
-                    </label>
-
-                    <input
-                        type="text"
-                        id="testName"
-                        class="form-control form-control-lg"
-                        placeholder="Обыкновенные дроби"
-                    >
-
-                </div>
-
-
-
-                <!-- SUBJECT -->
-
-                <div class="col-md-6">
-
-                    <label
-                        class="form-label"
-                        data-i18n="subject"
-                    >
-                        Предмет
-                    </label>
-
-                    <select
-                        id="subject"
-                        class="form-select form-select-lg"
-                    >
-
-                        <option value="math" data-i18n="math">
-                            Математика
-                        </option>
-
-                        <option value="english" data-i18n="english">
-                            Английский язык
-                        </option>
-
-                        <option value="kazakh" data-i18n="kazakh">
-                            Казахский язык
-                        </option>
-
-                        <option value="physics" data-i18n="physics">
-                            Физика
-                        </option>
-
-                        <option value="chemistry" data-i18n="chemistry">
-                            Химия
-                        </option>
-
-                        <option value="biology" data-i18n="biology">
-                            Биология
-                        </option>
-
-                        <option value="history" data-i18n="history">
-                            История
-                        </option>
-
-                        <option value="geography" data-i18n="geography">
-                            География
-                        </option>
-
-                        <option value="informatics" data-i18n="informatics">
-                            Информатика
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-
-                <!-- CLASS -->
-
-                <div class="col-md-4">
-
-                    <label
-                        class="form-label"
-                        data-i18n="class"
-                    >
-                        Класс
-                    </label>
-
-                    <select
-                        id="classSelect"
-                        class="form-select form-select-lg"
-                    >
-                        <option>5А</option>
-                        <option>5Б</option>
-                        <option>5В</option>
-                        <option>6А</option>
-                        <option>6Б</option>
-                        <option>7А</option>
-                    </select>
-
-                </div>
-
-
-
-                <!-- DEADLINE -->
-
-                <div class="col-md-4">
-
-                    <label
-                        class="form-label"
-                        data-i18n="deadline"
-                    >
-                        Дедлайн
-                    </label>
-
-                    <input
-                        type="datetime-local"
-                        id="deadline"
-                        class="form-control form-control-lg"
-                    >
-
-                </div>
-
-
-
-                <!-- PASSING SCORE -->
-
-                <div class="col-md-4">
-
-                    <label
-                        class="form-label"
-                        data-i18n="threshold"
-                    >
-                        Порог
-                    </label>
-
-                    <div class="input-group input-group-lg">
-
-                        <input
-                            type="number"
-                            id="passingScore"
-                            class="form-control"
-                            value="60"
-                            min="0"
-                            max="100"
-                        >
-
-                        <span class="input-group-text">
-                            /100
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
+            </a>
 
         </div>
 
 
 
-        <!-- QUESTIONS -->
+        <form id="createTestForm">
 
-        <div class="content-card">
 
-            <div
-                class="d-flex justify-content-between align-items-center mb-4"
-            >
+            <!-- TEST SETTINGS -->
 
-                <h4 class="fw-bold mb-0">
+            <div class="content-card mb-4">
 
-                    <span data-i18n="questions">
-                        Вопросы
-                    </span>
-
+                <h4
+                    id="settingsTitle"
+                    class="fw-bold mb-4"
+                >
+                    Настройки теста
                 </h4>
 
 
-                <button
-                    id="addQuestionBtn"
-                    type="button"
-                    class="btn btn-outline-primary"
+                <div class="row g-3">
+
+
+                    <!-- NAME -->
+
+                    <div class="col-lg-8">
+
+                        <label
+                            for="testName"
+                            class="form-label"
+                            data-i18n="testName"
+                        >
+                            Название теста
+                        </label>
+
+                        <input
+                            type="text"
+                            id="testName"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <!-- SUBJECT -->
+
+                    <div class="col-lg-4">
+
+                        <label
+                            for="subjectDisplay"
+                            class="form-label"
+                            data-i18n="subject"
+                        >
+                            Предмет
+                        </label>
+
+                        <input
+                            type="text"
+                            id="subjectDisplay"
+                            class="form-control"
+                            readonly
+                        >
+
+                    </div>
+
+
+
+                    <!-- CLASS - FIXED -->
+
+                    <div class="col-lg-4">
+
+                        <label
+                            for="classDisplay"
+                            class="form-label"
+                            data-i18n="class"
+                        >
+                            Класс
+                        </label>
+
+                        <div class="input-group">
+
+                            <input
+                                type="text"
+                                id="classDisplay"
+                                class="form-control"
+                                readonly
+                            >
+
+                            <span
+                                class="input-group-text"
+                                title="Класс зафиксирован"
+                            >
+                                <i class="bi bi-lock"></i>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- DEADLINE -->
+
+                    <div class="col-lg-5">
+
+                        <label
+                            for="deadline"
+                            class="form-label"
+                            data-i18n="deadline"
+                        >
+                            Дедлайн
+                        </label>
+
+                        <input
+                            type="datetime-local"
+                            id="deadline"
+                            class="form-control"
+                        >
+
+                    </div>
+
+
+
+                    <!-- PASSING SCORE -->
+
+                    <div class="col-lg-3">
+
+                        <label
+                            for="passingScore"
+                            class="form-label"
+                            data-i18n="threshold"
+                        >
+                            Порог
+                        </label>
+
+                        <div class="input-group">
+
+                            <input
+                                type="number"
+                                id="passingScore"
+                                class="form-control"
+                                min="0"
+                                max="100"
+                                value="60"
+                                required
+                            >
+
+                            <span class="input-group-text">
+                                /100
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TIME LIMIT -->
+
+            <div class="content-card mb-4">
+
+                <h4
+                    id="timeSettingsTitle"
+                    class="fw-bold mb-3"
+                >
+                    Время прохождения
+                </h4>
+
+
+                <div class="d-flex flex-column gap-3">
+
+
+                    <div class="form-check">
+
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="timeMode"
+                            id="timeUnlimited"
+                            value="unlimited"
+                            checked
+                        >
+
+                        <label
+                            id="timeUnlimitedLabel"
+                            class="form-check-label"
+                            for="timeUnlimited"
+                        >
+                            Без ограничения по времени
+                        </label>
+
+                    </div>
+
+
+                    <div class="form-check">
+
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="timeMode"
+                            id="timeLimited"
+                            value="limited"
+                        >
+
+                        <label
+                            id="timeLimitedLabel"
+                            class="form-check-label"
+                            for="timeLimited"
+                        >
+                            Ограничить время
+                        </label>
+
+                    </div>
+
+
+                    <div
+                        id="timeLimitWrapper"
+                        class="d-none"
+                        style="max-width: 300px;"
+                    >
+
+                        <label
+                            id="timeLimitLabel"
+                            for="timeLimitMinutes"
+                            class="form-label"
+                        >
+                            Время на прохождение
+                        </label>
+
+
+                        <div class="input-group">
+
+                            <input
+                                type="number"
+                                id="timeLimitMinutes"
+                                class="form-control"
+                                min="1"
+                                max="300"
+                                placeholder="25"
+                            >
+
+                            <span
+                                id="minutesSuffix"
+                                class="input-group-text"
+                            >
+                                мин.
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            id="timeLimitHint"
+                            class="form-text"
+                        >
+                            От 1 до 300 минут
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- QUESTIONS -->
+
+            <div class="content-card mb-4">
+
+                <div
+                    class="d-flex justify-content-between align-items-center mb-4"
                 >
 
-                    <i class="bi bi-plus-lg"></i>
+                    <div>
 
-                    +
+                        <h4
+                            id="questionsTitle"
+                            class="fw-bold mb-1"
+                        >
+                            Вопросы
+                        </h4>
 
-                </button>
+                        <p
+                            id="questionsHint"
+                            class="text-secondary mb-0"
+                        >
+                            Добавьте вопросы и отметьте правильный ответ
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="addQuestionBtn"
+                        class="btn btn-outline-primary"
+                    >
+                        <i class="bi bi-plus-lg me-1"></i>
+
+                        <span id="addQuestionText">
+                            Добавить вопрос
+                        </span>
+                    </button>
+
+                </div>
+
+
+                <div id="questionsContainer">
+                </div>
 
             </div>
 
 
 
-            <div id="questionsContainer">
-
-                <!-- JS добавит сюда вопросы -->
-
-            </div>
-
-
-
-            <!-- SAVE -->
+            <!-- ACTIONS -->
 
             <div
-                class="d-flex justify-content-end gap-2 mt-4"
+                class="d-flex flex-wrap justify-content-between gap-3"
             >
 
                 <a
-                    href="staff-tests.html"
+                    id="cancelButton"
+                    href="staff-classes.html"
                     class="btn btn-outline-secondary"
                 >
+                    <i class="bi bi-arrow-left me-1"></i>
 
                     <span data-i18n="cancel">
                         Отмена
                     </span>
-
                 </a>
 
 
                 <button
+                    type="submit"
                     id="saveTestBtn"
-                    type="button"
                     class="btn btn-primary"
                 >
+                    <i class="bi bi-check-lg me-1"></i>
 
-                    <i class="bi bi-save me-1"></i>
-
-                    <span data-i18n="save">
-                        Сохранить
+                    <span id="saveButtonText">
+                        Сохранить тест
                     </span>
-
                 </button>
 
             </div>
 
-        </div>
+
+        </form>
 
 
     </main>
@@ -441,16 +551,9 @@
 </div>
 
 
-
-<!-- LANGUAGE -->
-
 <script src="js/language.js"></script>
-
-
-<!-- CREATE TEST LOGIC -->
-
 <script src="js/create-test.js"></script>
 
-
 </body>
+
 </html>

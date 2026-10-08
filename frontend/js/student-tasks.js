@@ -1,39 +1,109 @@
 /* =========================================================
    ADVANTA PULSE
    STUDENT ASSIGNMENTS
-   Показываем только НЕПРОЙДЕННЫЕ тесты
    ========================================================= */
 
 
 /* =========================================================
-   ДАННЫЕ ТЕКУЩЕГО УЧЕНИКА
-
-   Пока класс 5А используется как demo.
-   Позже это будет брать backend из аккаунта.
+   STORAGE
    ========================================================= */
 
-const registeredStudent =
-    JSON.parse(
-        localStorage.getItem(
-            "registeredStudent"
+function getStorageArray(key) {
+
+    try {
+
+        const data =
+            JSON.parse(
+                localStorage.getItem(key)
+            );
+
+        return Array.isArray(data)
+            ? data
+            : [];
+
+    } catch (error) {
+
+        return [];
+    }
+}
+
+
+function getStorageObject(key) {
+
+    try {
+
+        const data =
+            JSON.parse(
+                localStorage.getItem(key)
+            );
+
+        return (
+            data &&
+            typeof data === "object"
         )
-    );
+            ? data
+            : null;
+
+    } catch (error) {
+
+        return null;
+    }
+}
 
 
-const currentStudentClass =
-    localStorage.getItem(
-        "studentClass"
-    ) || "5А";
+/* =========================================================
+   CURRENT STUDENT
+   ========================================================= */
+
+function getCurrentStudent() {
+
+    const student =
+        getStorageObject(
+            "advantaCurrentStudent"
+        );
 
 
-const currentStudentFirstName =
-    registeredStudent?.firstName
-    || "Ученик";
+    if (
+        student &&
+        student.role === "student"
+    ) {
+
+        return student;
+    }
 
 
-const currentStudentLastName =
-    registeredStudent?.lastName
-    || "";
+    const user =
+        getStorageObject(
+            "advantaCurrentUser"
+        );
+
+
+    if (
+        user &&
+        user.role === "student"
+    ) {
+
+        return user;
+    }
+
+
+    return null;
+}
+
+
+const currentStudent =
+    getCurrentStudent();
+
+
+/* =========================================================
+   ACCESS
+   ========================================================= */
+
+if (!currentStudent) {
+
+    window.location.href =
+        "index.html";
+}
 
 
 /* =========================================================
@@ -65,13 +135,388 @@ const noTasksText =
 
 
 /* =========================================================
+   LANGUAGE
+   ========================================================= */
+
+function getLanguage() {
+
+    if (
+        typeof getCurrentLanguage === "function"
+    ) {
+
+        return getCurrentLanguage();
+    }
+
+
+    return (
+        localStorage.getItem("language")
+        ||
+        "ru"
+    );
+}
+
+
+function uiText(key) {
+
+    const language =
+        getLanguage();
+
+
+    const texts = {
+
+        ru: {
+
+            assigned:
+                "Назначенные вашему классу срезы",
+
+            noTasks:
+                "Нет активных заданий",
+
+            noTasksText:
+                "Новые тесты появятся здесь",
+
+            deadline:
+                "Дедлайн",
+
+            noDeadline:
+                "Без дедлайна",
+
+            threshold:
+                "Порог",
+
+            questions:
+                "вопросов",
+
+            time:
+                "Время",
+
+            minutes:
+                "мин.",
+
+            unlimited:
+                "Без ограничения",
+
+            start:
+                "Начать тест",
+
+            mathematics:
+                "Математика",
+
+            class:
+                "класс"
+
+        },
+
+
+        kz: {
+
+            assigned:
+                "Сіздің сыныбыңызға тағайындалған тесттер",
+
+            noTasks:
+                "Белсенді тапсырмалар жоқ",
+
+            noTasksText:
+                "Жаңа тесттер осы жерде пайда болады",
+
+            deadline:
+                "Соңғы мерзім",
+
+            noDeadline:
+                "Мерзімсіз",
+
+            threshold:
+                "Шекті балл",
+
+            questions:
+                "сұрақ",
+
+            time:
+                "Уақыт",
+
+            minutes:
+                "мин.",
+
+            unlimited:
+                "Шектеусіз",
+
+            start:
+                "Тестті бастау",
+
+            mathematics:
+                "Математика",
+
+            class:
+                "сынып"
+
+        },
+
+
+        en: {
+
+            assigned:
+                "Tests assigned to your class",
+
+            noTasks:
+                "No active assignments",
+
+            noTasksText:
+                "New tests will appear here",
+
+            deadline:
+                "Deadline",
+
+            noDeadline:
+                "No deadline",
+
+            threshold:
+                "Passing score",
+
+            questions:
+                "questions",
+
+            time:
+                "Time",
+
+            minutes:
+                "min.",
+
+            unlimited:
+                "No limit",
+
+            start:
+                "Start test",
+
+            mathematics:
+                "Mathematics",
+
+            class:
+                "class"
+        }
+    };
+
+
+    return (
+        texts[language]?.[key]
+        ||
+        texts.ru[key]
+        ||
+        key
+    );
+}
+
+
+/* =========================================================
+   STUDENT INFO
+   ========================================================= */
+
+function renderStudentInfo() {
+
+    if (!currentStudent) {
+        return;
+    }
+
+
+    const fullName = [
+
+        currentStudent.firstName,
+
+        currentStudent.lastName
+
+    ]
+        .filter(Boolean)
+        .join(" ")
+        .trim();
+
+
+    document.getElementById(
+        "studentName"
+    ).textContent =
+        fullName || "—";
+
+
+    document.getElementById(
+        "studentClass"
+    ).textContent =
+        currentStudent.className
+            ? `${currentStudent.className} ${uiText("class")}`
+            : "—";
+
+
+    document.getElementById(
+        "assignedTestsText"
+    ).textContent =
+        uiText("assigned");
+}
+
+
+/* =========================================================
+   CLASS FILTER
+   ========================================================= */
+
+function testBelongsToCurrentClass(test) {
+
+    if (
+        !test ||
+        !currentStudent
+    ) {
+
+        return false;
+    }
+
+
+    /*
+      NEW TESTS:
+      exact classId.
+    */
+
+    if (test.classId) {
+
+        return (
+            String(test.classId) ===
+            String(currentStudent.classId)
+        );
+    }
+
+
+    /*
+      LEGACY TEST SUPPORT:
+      old tests may only contain className.
+    */
+
+    if (
+        test.className &&
+        currentStudent.className
+    ) {
+
+        return (
+            test.className ===
+            currentStudent.className
+        );
+    }
+
+
+    /*
+      Support older classIds array.
+    */
+
+    if (
+        Array.isArray(test.classIds)
+    ) {
+
+        return test.classIds.some(
+            id =>
+                String(id) ===
+                String(currentStudent.classId)
+        );
+    }
+
+
+    return false;
+}
+
+
+/* =========================================================
+   COMPLETED TEST
+   ========================================================= */
+
+function hasStudentCompletedTest(
+    testId
+) {
+
+    const storageKeys = [
+
+        "advantaResults",
+
+        "advantaTestResults",
+
+        "studentResults"
+
+    ];
+
+
+    return storageKeys.some(
+        key => {
+
+            const results =
+                getStorageArray(key);
+
+
+            return results.some(
+                result => {
+
+                    const sameTest =
+                        String(result.testId) ===
+                        String(testId);
+
+
+                    const sameStudent =
+                        (
+                            result.studentId &&
+                            String(result.studentId) ===
+                            String(currentStudent.id)
+                        )
+                        ||
+                        (
+                            result.userId &&
+                            String(result.userId) ===
+                            String(currentStudent.id)
+                        );
+
+
+                    return (
+                        sameTest &&
+                        sameStudent
+                    );
+                }
+            );
+        }
+    );
+}
+
+
+/* =========================================================
    DEADLINE
    ========================================================= */
+
+function isExpired(test) {
+
+    if (!test.deadline) {
+
+        return false;
+    }
+
+
+    const deadline =
+        new Date(
+            test.deadline
+        );
+
+
+    if (
+        Number.isNaN(
+            deadline.getTime()
+        )
+    ) {
+
+        return false;
+    }
+
+
+    return (
+        deadline.getTime() <
+        Date.now()
+    );
+}
+
 
 function formatStudentDeadline(value) {
 
     if (!value) {
-        return "—";
+
+        return uiText(
+            "noDeadline"
+        );
     }
 
 
@@ -84,45 +529,78 @@ function formatStudentDeadline(value) {
             date.getTime()
         )
     ) {
+
         return value;
     }
 
 
-    const day =
-        String(
-            date.getDate()
-        ).padStart(2, "0");
-
-
-    const month =
-        String(
-            date.getMonth() + 1
-        ).padStart(2, "0");
-
-
-    const year =
-        date.getFullYear();
-
-
-    const hours =
-        String(
-            date.getHours()
-        ).padStart(2, "0");
-
-
-    const minutes =
-        String(
-            date.getMinutes()
-        ).padStart(2, "0");
-
-
-    return `${day}.${month}.${year}, ${hours}:${minutes}`;
+    return date.toLocaleString(
+        getLanguage() === "kz"
+            ? "kk-KZ"
+            : getLanguage() === "en"
+                ? "en-US"
+                : "ru-RU",
+        {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        }
+    );
 }
 
 
 /* =========================================================
-   SUBJECT ICON
+   SUBJECT
    ========================================================= */
+
+function getSubjectName(test) {
+
+    const subject =
+        test.subject
+        ||
+        test.subjectId;
+
+
+    if (
+        subject === "math"
+    ) {
+
+        return uiText(
+            "mathematics"
+        );
+    }
+
+
+    if (
+        subject &&
+        typeof t === "function"
+    ) {
+
+        const translated =
+            t(subject);
+
+
+        if (
+            translated &&
+            translated !== subject
+        ) {
+
+            return translated;
+        }
+    }
+
+
+    return (
+        test.subjectName
+        ||
+        subject
+        ||
+        uiText("mathematics")
+    );
+}
+
 
 function getSubjectIcon(subject) {
 
@@ -131,8 +609,7 @@ function getSubjectIcon(subject) {
     }
 
     if (
-        subject === "english"
-        ||
+        subject === "english" ||
         subject === "kazakh"
     ) {
         return "bi-translate";
@@ -168,79 +645,111 @@ function getSubjectIcon(subject) {
 
 
 /* =========================================================
-   EMPTY TEXT
+   SAFE TEXT
    ========================================================= */
 
-function renderNoTasksText() {
+function escapeTaskText(value) {
 
-    const language =
-        getCurrentLanguage();
+    const div =
+        document.createElement(
+            "div"
+        );
 
 
-    if (language === "kz") {
+    div.textContent =
+        String(
+            value ?? ""
+        );
 
-        noTasksTitle.textContent =
-            "Белсенді тапсырмалар жоқ";
 
-        noTasksText.textContent =
-            "Жаңа тесттер осы жерде пайда болады";
-
-    }
-
-    else if (language === "en") {
-
-        noTasksTitle.textContent =
-            "No active assignments";
-
-        noTasksText.textContent =
-            "New tests will appear here";
-
-    }
-
-    else {
-
-        noTasksTitle.textContent =
-            "Нет активных заданий";
-
-        noTasksText.textContent =
-            "Новые тесты появятся здесь";
-    }
+    return div.innerHTML;
 }
 
 
 /* =========================================================
-   ПРОВЕРКА:
-   ПРОХОДИЛ ЛИ УЧЕНИК ЭТОТ ТЕСТ
+   GET ASSIGNED TESTS
    ========================================================= */
 
-function hasStudentCompletedTest(
-    testId,
-    results
-) {
+function getAssignedTests() {
 
-    return results.some(
-        function (result) {
+    const allTests =
+        getStorageArray(
+            "advantaTests"
+        );
 
-            return (
-                String(result.testId)
-                ===
-                String(testId)
 
-                &&
+    return allTests.filter(
+        test => {
 
-                result.studentFirstName
-                ===
-                currentStudentFirstName
+            /*
+              1. Must be published.
+            */
 
-                &&
+            if (
+                test.status !== "published"
+            ) {
 
-                result.studentLastName
-                ===
-                currentStudentLastName
-            );
+                return false;
+            }
 
+
+            /*
+              2. Must belong to THIS student's class.
+            */
+
+            if (
+                !testBelongsToCurrentClass(test)
+            ) {
+
+                return false;
+            }
+
+
+            /*
+              3. Expired tests are not active.
+            */
+
+            if (
+                isExpired(test)
+            ) {
+
+                return false;
+            }
+
+
+            /*
+              4. Already completed test disappears
+              from active assignments.
+            */
+
+            if (
+                hasStudentCompletedTest(
+                    test.id
+                )
+            ) {
+
+                return false;
+            }
+
+
+            return true;
         }
     );
+}
+
+
+/* =========================================================
+   EMPTY
+   ========================================================= */
+
+function renderNoTasksText() {
+
+    noTasksTitle.textContent =
+        uiText("noTasks");
+
+
+    noTasksText.textContent =
+        uiText("noTasksText");
 }
 
 
@@ -250,74 +759,19 @@ function hasStudentCompletedTest(
 
 function renderStudentTasks() {
 
-    /* Все тесты */
+    if (!currentStudent) {
 
-    const allTests =
-        JSON.parse(
-            localStorage.getItem(
-                "advantaTests"
-            )
-        ) || [];
+        return;
+    }
 
-
-    /* Все результаты */
-
-    const allResults =
-        JSON.parse(
-            localStorage.getItem(
-                "advantaResults"
-            )
-        ) || [];
-
-
-    /*
-       Ученик видит тест, только если:
-
-       1. Тест назначен
-       2. Тест назначен его классу
-       3. Ученик ещё НЕ проходил этот тест
-    */
 
     const assignedTests =
-        allTests.filter(
-            function (test) {
-
-                const published =
-                    test.status ===
-                    "published";
-
-
-                const correctClass =
-                    test.className ===
-                    currentStudentClass;
-
-
-                const completed =
-                    hasStudentCompletedTest(
-                        test.id,
-                        allResults
-                    );
-
-
-                return (
-                    published
-                    &&
-                    correctClass
-                    &&
-                    !completed
-                );
-
-            }
-        );
+        getAssignedTests();
 
 
     studentTasksContainer.innerHTML =
         "";
 
-
-    /* =====================================================
-       НЕТ ЗАДАНИЙ
-       ===================================================== */
 
     if (
         assignedTests.length === 0
@@ -344,12 +798,8 @@ function renderStudentTasks() {
         );
 
 
-    /* =====================================================
-       ПОКАЗЫВАЕМ ЗАДАНИЯ
-       ===================================================== */
-
     assignedTests.forEach(
-        function (test) {
+        test => {
 
             const card =
                 document.createElement(
@@ -361,18 +811,54 @@ function renderStudentTasks() {
                 "assignment-card";
 
 
+            const subject =
+                test.subject
+                ||
+                test.subjectId
+                ||
+                "math";
+
+
+            const testName =
+                test.name
+                ||
+                test.title
+                ||
+                "Test";
+
+
+            const questionCount =
+                Array.isArray(
+                    test.questions
+                )
+                    ? test.questions.length
+                    : 0;
+
+
+            const passingScore =
+                Number(
+                    test.passingScore
+                    ??
+                    test.threshold
+                    ??
+                    60
+                );
+
+
+            const timeText =
+                test.timeLimit
+                    ? `${test.timeLimit} ${uiText("minutes")}`
+                    : uiText("unlimited");
+
+
             card.innerHTML = `
 
-                <div
-                    class="assignment-info"
-                >
+                <div class="assignment-info">
 
-                    <div
-                        class="subject-icon"
-                    >
+                    <div class="subject-icon">
 
                         <i
-                            class="bi ${getSubjectIcon(test.subject)}"
+                            class="bi ${getSubjectIcon(subject)}"
                         ></i>
 
                     </div>
@@ -380,34 +866,38 @@ function renderStudentTasks() {
 
                     <div>
 
-                        <span
-                            class="subject-label"
-                        >
-                            ${t(test.subject)}
+                        <span class="subject-label">
+
+                            ${escapeTaskText(
+                                getSubjectName(test)
+                            )}
+
                         </span>
 
 
                         <h4>
+
                             ${escapeTaskText(
-                                test.name
+                                testName
                             )}
+
                         </h4>
 
 
-                        <div
-                            class="assignment-meta"
-                        >
+                        <div class="assignment-meta">
 
                             <span>
 
-                                <i
-                                    class="bi bi-calendar-event"
-                                ></i>
+                                <i class="bi bi-calendar-event"></i>
 
-                                ${t("deadline")}:
+                                ${escapeTaskText(
+                                    uiText("deadline")
+                                )}:
 
-                                ${formatStudentDeadline(
-                                    test.deadline
+                                ${escapeTaskText(
+                                    formatStudentDeadline(
+                                        test.deadline
+                                    )
                                 )}
 
                             </span>
@@ -415,32 +905,41 @@ function renderStudentTasks() {
 
                             <span>
 
-                                <i
-                                    class="bi bi-check-circle"
-                                ></i>
+                                <i class="bi bi-check-circle"></i>
 
-                                ${t("threshold")}:
+                                ${escapeTaskText(
+                                    uiText("threshold")
+                                )}:
 
-                                ${test.passingScore}/100
+                                ${passingScore}/100
 
                             </span>
 
 
                             <span>
 
-                                <i
-                                    class="bi bi-question-circle"
-                                ></i>
+                                <i class="bi bi-question-circle"></i>
 
-                                ${
-                                    Array.isArray(
-                                        test.questions
-                                    )
-                                        ? test.questions.length
-                                        : 0
-                                }
+                                ${questionCount}
 
-                                ${t("questions")}
+                                ${escapeTaskText(
+                                    uiText("questions")
+                                )}
+
+                            </span>
+
+
+                            <span>
+
+                                <i class="bi bi-clock"></i>
+
+                                ${escapeTaskText(
+                                    uiText("time")
+                                )}:
+
+                                ${escapeTaskText(
+                                    timeText
+                                )}
 
                             </span>
 
@@ -454,10 +953,12 @@ function renderStudentTasks() {
                 <button
                     type="button"
                     class="btn btn-primary start-test-btn"
-                    data-id="${test.id}"
+                    data-id="${escapeTaskText(test.id)}"
                 >
 
-                    ${t("startTest")}
+                    ${escapeTaskText(
+                        uiText("start")
+                    )}
 
                 </button>
             `;
@@ -467,32 +968,11 @@ function renderStudentTasks() {
                 .appendChild(
                     card
                 );
-
         }
     );
 
 
     addStartTestEvents();
-}
-
-
-/* =========================================================
-   SAFE TEXT
-   ========================================================= */
-
-function escapeTaskText(value) {
-
-    const div =
-        document.createElement(
-            "div"
-        );
-
-
-    div.textContent =
-        String(value ?? "");
-
-
-    return div.innerHTML;
 }
 
 
@@ -507,15 +987,20 @@ function addStartTestEvents() {
             ".start-test-btn"
         )
         .forEach(
-            function (button) {
+            button => {
 
                 button.addEventListener(
                     "click",
                     function () {
 
                         const testId =
-                            button.dataset.id;
+                            this.dataset.id;
 
+
+                        /*
+                          Keep old key for compatibility
+                          with the current test page.
+                        */
 
                         localStorage.setItem(
                             "currentStudentTestId",
@@ -523,15 +1008,49 @@ function addStartTestEvents() {
                         );
 
 
-                        window.location.href =
-                            "test.html";
+                        /*
+                          Also pass test ID in URL.
+                          This is cleaner for the new version.
+                        */
 
+                        window.location.href =
+                            `test.html?id=${encodeURIComponent(testId)}`;
                     }
                 );
-
             }
         );
 }
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+document
+    .getElementById(
+        "logoutButton"
+    )
+    .addEventListener(
+        "click",
+        function (event) {
+
+            event.preventDefault();
+
+
+            localStorage.removeItem(
+                "advantaCurrentStudent"
+            );
+
+
+            localStorage.removeItem(
+                "advantaCurrentUser"
+            );
+
+
+            window.location.href =
+                "index.html";
+        }
+    );
 
 
 /* =========================================================
@@ -542,8 +1061,9 @@ window.addEventListener(
     "languageChanged",
     function () {
 
-        renderStudentTasks();
+        renderStudentInfo();
 
+        renderStudentTasks();
     }
 );
 
@@ -556,7 +1076,8 @@ document.addEventListener(
     "DOMContentLoaded",
     function () {
 
-        renderStudentTasks();
+        renderStudentInfo();
 
+        renderStudentTasks();
     }
 );
