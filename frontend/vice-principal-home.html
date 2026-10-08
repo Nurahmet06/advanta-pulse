@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ADVANTA Pulse — Vice Principal</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="d-flex min-vh-100">
+
+    <!-- SIDEBAR -->
+    <aside class="bg-dark text-white p-3"
+           style="width:250px;min-width:250px;">
+
+        <h4 class="mb-4">
+            ADVANTA <span class="text-primary">Pulse</span>
+        </h4>
+
+        <nav class="nav flex-column gap-2">
+
+            <a href="vice-principal-home.html"
+               class="nav-link text-white bg-primary rounded">
+                <i class="bi bi-speedometer2 me-2"></i>
+                <span data-i18n="vpOverview">Обзор</span>
+            </a>
+
+            <a href="vice-principal-classes.html"
+               class="nav-link text-white">
+                <i class="bi bi-diagram-3 me-2"></i>
+                <span data-i18n="vpClasses">Все классы</span>
+            </a>
+
+            <a href="vice-principal-teachers.html"
+               class="nav-link text-white">
+                <i class="bi bi-person-badge me-2"></i>
+                <span data-i18n="vpTeachers">Учителя</span>
+            </a>
+
+            <a href="vice-principal-tests.html"
+               class="nav-link text-white">
+                <i class="bi bi-journal-check me-2"></i>
+                <span data-i18n="vpTests">Тесты</span>
+            </a>
+
+            <a href="vice-principal-results.html"
+               class="nav-link text-white">
+                <i class="bi bi-clipboard-data me-2"></i>
+                <span data-i18n="vpResults">Результаты</span>
+            </a>
+
+            <a href="vice-principal-analytics.html"
+               class="nav-link text-white">
+                <i class="bi bi-graph-up-arrow me-2"></i>
+                <span data-i18n="vpAnalytics">Аналитика</span>
+            </a>
+
+        </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="flex-grow-1 bg-light p-4">
+
+        <!-- HEADER -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <div>
+                <div class="text-muted small" data-i18n="welcome">
+                    Добро пожаловать
+                </div>
+
+                <h2 class="fw-bold mb-1" id="vpName">Завуч</h2>
+
+                <div class="text-muted" data-i18n="vpRole">
+                    Завуч · ADVANTA Pulse
+                </div>
+            </div>
+
+            <select id="languageSelect"
+                    class="form-select form-select-sm"
+                    style="width:85px;">
+                <option value="ru">RU</option>
+                <option value="kz">KZ</option>
+                <option value="en">EN</option>
+            </select>
+
+        </div>
+
+        <!-- DASHBOARD TITLE -->
+        <div class="mb-4">
+            <h4 class="fw-semibold" data-i18n="vpDashboard">
+                Контроль качества обучения
+            </h4>
+
+            <p class="text-muted" data-i18n="vpDashboardDescription">
+                Успеваемость классов, работа учителей и проблемные зоны.
+            </p>
+        </div>
+
+        <!-- KPI -->
+        <div class="row g-3 mb-4">
+
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <i class="bi bi-people fs-4 text-primary"></i>
+                        <div class="text-muted mt-2" data-i18n="vpStudents">
+                            Ученики
+                        </div>
+                        <h2 id="totalStudents">—</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <i class="bi bi-person-badge fs-4 text-primary"></i>
+                        <div class="text-muted mt-2" data-i18n="vpTeachers">
+                            Учителя
+                        </div>
+                        <h2 id="totalTeachers">—</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <i class="bi bi-diagram-3 fs-4 text-primary"></i>
+                        <div class="text-muted mt-2" data-i18n="vpClasses">
+                            Классы
+                        </div>
+                        <h2 id="totalClasses">—</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <i class="bi bi-bar-chart fs-4 text-primary"></i>
+                        <div class="text-muted mt-2" data-i18n="vpAverage">
+                            Средний балл
+                        </div>
+                        <h2 id="averageScore">—</h2>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CRITICAL CLASSES -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body">
+
+                <h5 class="fw-semibold" data-i18n="vpCriticalClasses">
+                    Критические классы и предметы
+                </h5>
+
+                <p class="text-muted small" data-i18n="vpCriticalDescription">
+                    Направления, требующие вмешательства завуча.
+                </p>
+
+                <div id="criticalClasses"></div>
+
+            </div>
+        </div>
+
+        <!-- TEACHERS -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body">
+
+                <h5 class="fw-semibold" data-i18n="vpTeacherPerformance">
+                    Контроль работы учителей
+                </h5>
+
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead>
+                        <tr>
+                            <th data-i18n="vpTeacher">Учитель</th>
+                            <th data-i18n="vpSubject">Предмет</th>
+                            <th data-i18n="vpClasses">Классы</th>
+                            <th data-i18n="vpTests">Тесты</th>
+                            <th data-i18n="vpAverage">Средний балл</th>
+                            <th data-i18n="vpStatus">Статус</th>
+                        </tr>
+                        </thead>
+                        <tbody id="teachersTableBody"></tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- CLASS PERFORMANCE -->
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+
+                <h5 class="fw-semibold" data-i18n="vpClassPerformance">
+                    Успеваемость по классам
+                </h5>
+
+                <p class="text-muted small" data-i18n="vpClassPerformanceDescription">
+                    Результаты по предметам с указанием учителей.
+                </p>
+
+                <div id="classPerformance"></div>
+
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<script src="js/language.js"></script>
+<script src="js/vice-principal-home.js"></script>
+
+</body>
+</html>
