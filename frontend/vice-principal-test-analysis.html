@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ADVANTA Pulse — Анализ теста</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-light">
+
+<div class="d-flex min-vh-100">
+
+    <!-- SIDEBAR -->
+    <aside class="bg-dark text-white p-3"
+           style="width:250px;min-width:250px;">
+
+        <h4 class="mb-4">
+            ADVANTA <span class="text-primary">Pulse</span>
+        </h4>
+
+        <nav class="nav flex-column gap-2">
+
+            <a id="navOverview"
+               href="vice-principal-home.html"
+               class="nav-link text-white">
+                <i class="bi bi-speedometer2 me-2"></i>
+                <span>Обзор</span>
+            </a>
+
+            <a id="navClasses"
+               href="vice-principal-classes.html"
+               class="nav-link text-white">
+                <i class="bi bi-diagram-3 me-2"></i>
+                <span>Все классы</span>
+            </a>
+
+            <a id="navTeachers"
+               href="vice-principal-teachers.html"
+               class="nav-link text-white">
+                <i class="bi bi-person-badge me-2"></i>
+                <span>Учителя</span>
+            </a>
+
+            <a id="navTests"
+               href="vice-principal-tests.html"
+               class="nav-link text-white bg-primary rounded">
+                <i class="bi bi-journal-check me-2"></i>
+                <span>Тесты</span>
+            </a>
+
+            <a id="navResults"
+               href="vice-principal-results.html"
+               class="nav-link text-white">
+                <i class="bi bi-clipboard-data me-2"></i>
+                <span>Результаты</span>
+            </a>
+
+            <a id="navAnalytics"
+               href="vice-principal-analytics.html"
+               class="nav-link text-white">
+                <i class="bi bi-graph-up-arrow me-2"></i>
+                <span>Аналитика</span>
+            </a>
+
+        </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="flex-grow-1 p-4">
+
+        <div class="d-flex justify-content-between align-items-start mb-4">
+            <div>
+                <a id="backLink"
+                   href="vice-principal-tests.html"
+                   class="btn btn-outline-secondary btn-sm mb-3">
+                    <i class="bi bi-arrow-left me-1"></i>
+                    <span id="backLabel">Назад к тестам</span>
+                </a>
+
+                <h2 id="pageTitle">Анализ теста</h2>
+
+                <p id="testInfo" class="text-muted">
+                    Загрузка информации...
+                </p>
+            </div>
+
+            <select id="languageSelect"
+                    class="form-select"
+                    style="width:100px;"
+                    aria-label="Language">
+                <option value="ru">RU</option>
+                <option value="kz">KZ</option>
+                <option value="en">EN</option>
+            </select>
+        </div>
+
+        <!-- TEST STATISTICS -->
+        <div class="row g-3 mb-4">
+
+            <div class="col-md-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div id="completedLabel" class="text-muted small">
+                            Выполнений
+                        </div>
+                        <h3 id="completedCount">0</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div id="averageLabel" class="text-muted small">
+                            Средний балл
+                        </div>
+                        <h3 id="averageScore">—</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div id="passedLabel" class="text-muted small">
+                            Прошли порог
+                        </div>
+                        <h3 id="passedCount">0</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div id="failedLabel" class="text-muted small">
+                            Ниже порога
+                        </div>
+                        <h3 id="failedCount">0</h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- STUDENTS AT RISK -->
+        <div class="card mb-4">
+            <div class="card-body">
+
+                <h5 id="riskTitle">Ученики группы риска</h5>
+
+                <p id="riskDescription" class="text-muted small">
+                    Ученики, не набравшие проходной балл
+                </p>
+
+                <div id="riskStudentsList">
+                    <p class="text-muted">Загрузка...</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- RESULTS TABLE -->
+        <div class="card">
+            <div class="card-body">
+
+                <h5 id="resultsTitle" class="mb-3">
+                    Результаты учеников
+                </h5>
+
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+
+                        <thead>
+                            <tr>
+                                <th id="studentHeader">Ученик</th>
+                                <th id="classHeader">Класс</th>
+                                <th id="scoreHeader">Балл</th>
+                                <th id="thresholdHeader">Порог</th>
+                                <th id="statusHeader">Статус</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="resultsTableBody">
+                            <tr>
+                                <td colspan="5"
+                                    class="text-center text-muted py-4">
+                                    Загрузка данных...
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<script src="js/language.js"></script>
+<script src="js/vice-principal-test-analysis.js"></script>
+
+</body>
+</html>
