@@ -105,184 +105,7 @@ function uiText(key) {
         getLanguage();
 
 
-    const texts = {
-
-        ru: {
-
-            description:
-                "Система срезов знаний и аналитики успеваемости",
-
-            loginTitle:
-                "Вход в систему",
-
-            email:
-                "Email",
-
-            emailPlaceholder:
-                "Введите email",
-
-            password:
-                "Пароль",
-
-            passwordPlaceholder:
-                "Введите пароль",
-
-            login:
-                "Войти",
-
-            loggingIn:
-                "Вход...",
-
-            registrationQuestion:
-                "Ученик и ещё нет аккаунта?",
-
-            registration:
-                "Зарегистрироваться",
-
-            fillFields:
-                "Введите email и пароль.",
-
-            wrongCredentials:
-                "Неверный email или пароль.",
-
-            pending:
-                "Ваша заявка ещё ожидает подтверждения учителя.",
-
-            rejected:
-                "Ваша заявка была отклонена. Обратитесь к учителю или администрации школы.",
-
-            approvedError:
-                "Заявка подтверждена, но аккаунт ученика не найден. Обратитесь к учителю.",
-
-            inactive:
-                "Ваш аккаунт сейчас неактивен.",
-
-            showPassword:
-                "Показать пароль",
-
-            hidePassword:
-                "Скрыть пароль"
-
-        },
-
-
-        kz: {
-
-            description:
-                "Білім деңгейін тексеру және үлгерімді талдау жүйесі",
-
-            loginTitle:
-                "Жүйеге кіру",
-
-            email:
-                "Email",
-
-            emailPlaceholder:
-                "Email енгізіңіз",
-
-            password:
-                "Құпия сөз",
-
-            passwordPlaceholder:
-                "Құпия сөзді енгізіңіз",
-
-            login:
-                "Кіру",
-
-            loggingIn:
-                "Кіру...",
-
-            registrationQuestion:
-                "Оқушысыз ба және аккаунтыңыз әлі жоқ па?",
-
-            registration:
-                "Тіркелу",
-
-            fillFields:
-                "Email және құпия сөзді енгізіңіз.",
-
-            wrongCredentials:
-                "Email немесе құпия сөз дұрыс емес.",
-
-            pending:
-                "Сіздің өтінішіңіз мұғалімнің растауын күтіп тұр.",
-
-            rejected:
-                "Сіздің өтінішіңіз қабылданбады. Мұғалімге немесе мектеп әкімшілігіне хабарласыңыз.",
-
-            approvedError:
-                "Өтініш расталды, бірақ оқушы аккаунты табылмады. Мұғалімге хабарласыңыз.",
-
-            inactive:
-                "Сіздің аккаунтыңыз қазір белсенді емес.",
-
-            showPassword:
-                "Құпия сөзді көрсету",
-
-            hidePassword:
-                "Құпия сөзді жасыру"
-
-        },
-
-
-        en: {
-
-            description:
-                "Knowledge assessment and academic analytics system",
-
-            loginTitle:
-                "Sign in",
-
-            email:
-                "Email",
-
-            emailPlaceholder:
-                "Enter email",
-
-            password:
-                "Password",
-
-            passwordPlaceholder:
-                "Enter password",
-
-            login:
-                "Sign in",
-
-            loggingIn:
-                "Signing in...",
-
-            registrationQuestion:
-                "Are you a student without an account?",
-
-            registration:
-                "Register",
-
-            fillFields:
-                "Enter your email and password.",
-
-            wrongCredentials:
-                "Incorrect email or password.",
-
-            pending:
-                "Your registration request is still waiting for teacher approval.",
-
-            rejected:
-                "Your registration request was rejected. Please contact your teacher or school administration.",
-
-            approvedError:
-                "Your request was approved, but the student account could not be found. Please contact your teacher.",
-
-            inactive:
-                "Your account is currently inactive.",
-
-            showPassword:
-                "Show password",
-
-            hidePassword:
-                "Hide password"
-
-        }
-    };
+    const texts = window.AdvantaI18n.scope("app");
 
 
     return (
@@ -838,8 +661,15 @@ async function tryStaffLogin(
     );
 
 
-    window.location.href =
-        "staff-home.html";
+    const destination = {
+        teacher: "staff-home.html",
+        "vice-principal": "vice-principal-home.html",
+        vicePrincipal: "vice-principal-home.html",
+        director: "director-home.html",
+        administrator: "admin-home.html",
+        admin: "admin-home.html"
+    };
+    window.location.href = destination[staff.role] || "index.html";
 
 
     return true;

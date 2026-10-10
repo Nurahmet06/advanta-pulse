@@ -382,68 +382,7 @@ function getPageText(key) {
             : "ru";
 
 
-    const texts = {
-
-        ru: {
-
-            description:
-                "Выберите класс для перехода в его кабинет",
-
-            students:
-                "учеников",
-
-            requests:
-                "заявок",
-
-            tests:
-                "тестов",
-
-            openClass:
-                "Открыть класс"
-
-        },
-
-
-        kz: {
-
-            description:
-                "Сынып кабинетіне өту үшін сыныпты таңдаңыз",
-
-            students:
-                "оқушы",
-
-            requests:
-                "өтінім",
-
-            tests:
-                "тест",
-
-            openClass:
-                "Сыныпты ашу"
-
-        },
-
-
-        en: {
-
-            description:
-                "Select a class to open its dashboard",
-
-            students:
-                "students",
-
-            requests:
-                "requests",
-
-            tests:
-                "tests",
-
-            openClass:
-                "Open class"
-
-        }
-
-    };
+    const texts = window.AdvantaI18n.scope("staff-classes");
 
 
     return (

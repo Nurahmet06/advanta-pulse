@@ -59,45 +59,7 @@ function homeText(key) {
             : "ru";
 
 
-    const texts = {
-
-        ru: {
-            teacher: "Учитель",
-            testFallback: "Тест",
-            edit: "Изменить",
-            noTests: "Тестов пока нет",
-            draft: "Черновик",
-            published: "Назначен",
-            finished: "Завершён",
-            students: "уч.",
-            requests: "заявок"
-        },
-
-        kz: {
-            teacher: "Мұғалім",
-            testFallback: "Тест",
-            edit: "Өзгерту",
-            noTests: "Тесттер әзірге жоқ",
-            draft: "Жоба",
-            published: "Тағайындалды",
-            finished: "Аяқталды",
-            students: "оқушы",
-            requests: "өтінім"
-        },
-
-        en: {
-            teacher: "Teacher",
-            testFallback: "Test",
-            edit: "Edit",
-            noTests: "No tests yet",
-            draft: "Draft",
-            published: "Assigned",
-            finished: "Finished",
-            students: "students",
-            requests: "requests"
-        }
-
-    };
+    const texts = window.AdvantaI18n.scope("staff-home");
 
 
     return (

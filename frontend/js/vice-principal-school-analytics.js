@@ -1,71 +1,7 @@
 (() => {
     "use strict";
 
-    const TEXT = {
-        ru: {
-            nav: ["Обзор", "Все классы", "Учителя", "Тесты", "Результаты", "Аналитика"],
-            title: "Аналитика школы",
-            description: "Результаты тестирования по классам",
-            classes: "Классов",
-            results: "Выполнений",
-            average: "Средний балл",
-            risk: "Ниже порога",
-            classesTitle: "Успеваемость по классам",
-            class: "Класс",
-            completed: "Выполнений",
-            score: "Средний балл",
-            below: "Ниже порога",
-            action: "Действие",
-            details: "Подробнее",
-            riskTitle: "Ученики группы риска",
-            student: "Ученик",
-            test: "Тест",
-            empty: "Нет данных",
-            unknown: "Не указан"
-        },
-        kz: {
-            nav: ["Шолу", "Барлық сыныптар", "Мұғалімдер", "Тесттер", "Нәтижелер", "Талдау"],
-            title: "Мектеп аналитикасы",
-            description: "Сыныптар бойынша тестілеу нәтижелері",
-            classes: "Сыныптар",
-            results: "Орындалған тесттер",
-            average: "Орташа балл",
-            risk: "Шекті балдан төмен",
-            classesTitle: "Сыныптар бойынша үлгерім",
-            class: "Сынып",
-            completed: "Орындалған тесттер",
-            score: "Орташа балл",
-            below: "Шекті балдан төмен",
-            action: "Әрекет",
-            details: "Толығырақ",
-            riskTitle: "Тәуекел тобындағы оқушылар",
-            student: "Оқушы",
-            test: "Тест",
-            empty: "Деректер жоқ",
-            unknown: "Көрсетілмеген"
-        },
-        en: {
-            nav: ["Overview", "All Classes", "Teachers", "Tests", "Results", "Analytics"],
-            title: "School Analytics",
-            description: "Test performance across classes",
-            classes: "Classes",
-            results: "Completions",
-            average: "Average score",
-            risk: "Below threshold",
-            classesTitle: "Performance by class",
-            class: "Class",
-            completed: "Completions",
-            score: "Average score",
-            below: "Below threshold",
-            action: "Action",
-            details: "Details",
-            riskTitle: "Students at risk",
-            student: "Student",
-            test: "Test",
-            empty: "No data",
-            unknown: "Not specified"
-        }
-    };
+    const TEXT = window.AdvantaI18n.scope("vice-principal-school-analytics");
 
     const read = key => {
         try {

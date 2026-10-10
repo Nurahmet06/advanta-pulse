@@ -1,0 +1,1 @@
+(()=>{const render=()=>{let a=[];try{a=JSON.parse(localStorage.getItem('advantaStaffUsers')||'[]')}catch{}document.getElementById('activeCount').textContent=a.filter(x=>x.status==='active').length;document.getElementById('pendingCount').textContent=a.filter(x=>x.status==='pending').length};window.addEventListener('storage',render);render()})();
