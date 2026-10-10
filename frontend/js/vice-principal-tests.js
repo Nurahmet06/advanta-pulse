@@ -500,9 +500,8 @@
 
                 // Детальная аналитика отдельного теста
                 // будет добавлена следующим этапом.
-                alert(
-                    `${tr("details")}: ${testId}`
-                );
+                window.location.href =
+                    `vice-principal-test-analysis.html?test=${encodeURIComponent(testId)}`;
             });
 
         window.addEventListener("languageChanged", render);

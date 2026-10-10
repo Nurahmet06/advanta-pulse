@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,233 +12,208 @@
 </head>
 
 <body>
-<div class="d-flex min-vh-100">
+    <div class="d-flex min-vh-100">
 
-    <!-- SIDEBAR -->
-    <aside class="bg-dark text-white p-3"
-           style="width:250px;min-width:250px;">
+        <!-- SIDEBAR -->
+        <aside class="bg-dark text-white p-3" style="width:250px;min-width:250px;">
 
-        <h4 class="mb-4">
-            ADVANTA <span class="text-primary">Pulse</span>
-        </h4>
+            <h4 class="mb-4">
+                ADVANTA <span class="text-primary">Pulse</span>
+            </h4>
 
-        <nav class="nav flex-column gap-2">
+            <nav class="nav flex-column gap-2">
 
-            <a href="vice-principal-home.html"
-               class="nav-link text-white">
-                <i class="bi bi-speedometer2 me-2"></i>
-                <span data-i18n="vpOverview">Обзор</span>
-            </a>
+                <a href="vice-principal-home.html" class="nav-link text-white">
+                    <i class="bi bi-speedometer2 me-2"></i>
+                    <span data-i18n="vpOverview">Обзор</span>
+                </a>
 
-            <a href="vice-principal-classes.html"
-               class="nav-link text-white">
-                <i class="bi bi-diagram-3 me-2"></i>
-                <span data-i18n="vpClasses">Все классы</span>
-            </a>
+                <a href="vice-principal-classes.html" class="nav-link text-white">
+                    <i class="bi bi-diagram-3 me-2"></i>
+                    <span data-i18n="vpClasses">Все классы</span>
+                </a>
 
-            <a href="vice-principal-teachers.html"
-               class="nav-link text-white bg-primary rounded"
-               aria-current="page">
-                <i class="bi bi-person-badge me-2"></i>
-                <span data-i18n="vpTeachers">Учителя</span>
-            </a>
+                <a href="vice-principal-teachers.html" class="nav-link text-white bg-primary rounded"
+                    aria-current="page">
+                    <i class="bi bi-person-badge me-2"></i>
+                    <span data-i18n="vpTeachers">Учителя</span>
+                </a>
 
-            <a href="vice-principal-tests.html"
-               class="nav-link text-white">
-                <i class="bi bi-journal-check me-2"></i>
-                <span data-i18n="vpTests">Тесты</span>
-            </a>
+                <a href="vice-principal-tests.html" class="nav-link text-white">
+                    <i class="bi bi-journal-check me-2"></i>
+                    <span data-i18n="vpTests">Тесты</span>
+                </a>
 
-            <a href="vice-principal-results.html"
-               class="nav-link text-white">
-                <i class="bi bi-clipboard-data me-2"></i>
-                <span data-i18n="vpResults">Результаты</span>
-            </a>
+                <a href="vice-principal-results.html" class="nav-link text-white">
+                    <i class="bi bi-clipboard-data me-2"></i>
+                    <span data-i18n="vpResults">Результаты</span>
+                </a>
 
-            <a href="vice-principal-analytics.html"
-               class="nav-link text-white">
-                <i class="bi bi-graph-up-arrow me-2"></i>
-                <span data-i18n="vpAnalytics">Аналитика</span>
-            </a>
+                <a href="vice-principal-school-analytics.html" class="nav-link text-white">
+                    <i class="bi bi-graph-up-arrow me-2"></i>
+                    <span data-i18n="vpAnalytics">Аналитика</span>
+                </a>
 
-        </nav>
-    </aside>
+            </nav>
+        </aside>
 
-    <!-- MAIN -->
-    <main class="flex-grow-1 bg-light p-4">
+        <!-- MAIN -->
+        <main class="flex-grow-1 bg-light p-4">
 
-        <div class="d-flex justify-content-between
+            <div class="d-flex justify-content-between
                     align-items-center mb-4">
 
-            <div>
-                <div class="text-muted small" data-i18n="vpRole">
-                    Завуч · ADVANTA Pulse
+                <div>
+                    <div class="text-muted small" data-i18n="vpRole">
+                        Завуч · ADVANTA Pulse
+                    </div>
+
+                    <h2 class="fw-bold mb-1" data-i18n="vpTeachersTitle">
+                        Учителя школы
+                    </h2>
+
+                    <p class="text-muted mb-0" data-i18n="vpTeachersDescription">
+                        Предметы, классы и результаты преподавания.
+                    </p>
                 </div>
 
-                <h2 class="fw-bold mb-1" data-i18n="vpTeachersTitle">
-                    Учителя школы
-                </h2>
+                <select id="languageSelect" class="form-select form-select-sm" style="width:85px;">
+                    <option value="ru">RU</option>
+                    <option value="kz">KZ</option>
+                    <option value="en">EN</option>
+                </select>
 
-                <p class="text-muted mb-0"
-                   data-i18n="vpTeachersDescription">
-                    Предметы, классы и результаты преподавания.
-                </p>
             </div>
 
-            <select id="languageSelect"
-                    class="form-select form-select-sm"
-                    style="width:85px;">
-                <option value="ru">RU</option>
-                <option value="kz">KZ</option>
-                <option value="en">EN</option>
-            </select>
+            <!-- KPI -->
+            <div class="row g-3 mb-4">
 
-        </div>
-
-        <!-- KPI -->
-        <div class="row g-3 mb-4">
-
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body">
-                        <div class="text-muted"
-                             data-i18n="vpTotalTeachers">
-                            Всего учителей
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="text-muted" data-i18n="vpTotalTeachers">
+                                Всего учителей
+                            </div>
+                            <h2 id="totalTeachers">—</h2>
                         </div>
-                        <h2 id="totalTeachers">—</h2>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body">
-                        <div class="text-muted"
-                             data-i18n="vpActiveTeachers">
-                            Учителя с тестами
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="text-muted" data-i18n="vpActiveTeachers">
+                                Учителя с тестами
+                            </div>
+                            <h2 id="activeTeachers">—</h2>
                         </div>
-                        <h2 id="activeTeachers">—</h2>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body">
-                        <div class="text-muted"
-                             data-i18n="vpTeachersNeedAttention">
-                            Требуют внимания
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="text-muted" data-i18n="vpTeachersNeedAttention">
+                                Требуют внимания
+                            </div>
+                            <h2 id="teachersNeedAttention">—</h2>
                         </div>
-                        <h2 id="teachersNeedAttention">—</h2>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- FILTERS -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+                            <label for="teacherSearch" class="form-label" data-i18n="vpSearchTeacher">
+                                Поиск учителя
+                            </label>
+
+                            <input type="search" id="teacherSearch" class="form-control" placeholder="Имя или фамилия">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="subjectFilter" class="form-label" data-i18n="vpFilterSubject">
+                                Предмет
+                            </label>
+
+                            <select id="subjectFilter" class="form-select">
+                                <option value="all">Все предметы</option>
+                            </select>
+                        </div>
+
                     </div>
                 </div>
             </div>
 
-        </div>
+            <!-- TEACHERS TABLE -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
 
-        <!-- FILTERS -->
-        <div class="card border-0 shadow-sm mb-4">
-            <div class="card-body">
-                <div class="row g-3">
-
-                    <div class="col-md-6">
-                        <label for="teacherSearch"
-                               class="form-label"
-                               data-i18n="vpSearchTeacher">
-                            Поиск учителя
-                        </label>
-
-                        <input type="search"
-                               id="teacherSearch"
-                               class="form-control"
-                               placeholder="Имя или фамилия">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="subjectFilter"
-                               class="form-label"
-                               data-i18n="vpFilterSubject">
-                            Предмет
-                        </label>
-
-                        <select id="subjectFilter"
-                                class="form-select">
-                            <option value="all">Все предметы</option>
-                        </select>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- TEACHERS TABLE -->
-        <div class="card border-0 shadow-sm mb-4">
-            <div class="card-body">
-
-                <h5 class="fw-semibold mb-3"
-                    data-i18n="vpTeacherList">
-                    Список учителей
-                </h5>
-
-                <div class="table-responsive">
-                    <table class="table align-middle">
-                        <thead>
-                        <tr>
-                            <th data-i18n="vpTeacher">Учитель</th>
-                            <th data-i18n="vpSubject">Предмет</th>
-                            <th data-i18n="vpClasses">Классы</th>
-                            <th data-i18n="vpTests">Тесты</th>
-                            <th data-i18n="vpAverage">Средний балл</th>
-                            <th data-i18n="vpStatus">Статус</th>
-                            <th data-i18n="vpAction">Действие</th>
-                        </tr>
-                        </thead>
-
-                        <tbody id="teachersTableBody">
-                            <tr>
-                                <td colspan="7" class="text-muted">
-                                    Загрузка данных...
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- TEACHER DETAILS -->
-        <section id="teacherDetails"
-                 class="card border-0 shadow-sm d-none">
-
-            <div class="card-body">
-
-                <div class="d-flex justify-content-between
-                            align-items-center mb-3">
-
-                    <h5 id="selectedTeacherName"
-                        class="fw-semibold mb-0">
-                        —
+                    <h5 class="fw-semibold mb-3" data-i18n="vpTeacherList">
+                        Список учителей
                     </h5>
 
-                    <button type="button"
-                            id="closeTeacherDetails"
-                            class="btn btn-outline-secondary btn-sm"
-                            data-i18n="vpClose">
-                        Закрыть
-                    </button>
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="vpTeacher">Учитель</th>
+                                    <th data-i18n="vpSubject">Предмет</th>
+                                    <th data-i18n="vpClasses">Классы</th>
+                                    <th data-i18n="vpTests">Тесты</th>
+                                    <th data-i18n="vpAverage">Средний балл</th>
+                                    <th data-i18n="vpStatus">Статус</th>
+                                    <th data-i18n="vpAction">Действие</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="teachersTableBody">
+                                <tr>
+                                    <td colspan="7" class="text-muted">
+                                        Загрузка данных...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
-
-                <div id="teacherDetailsContent"></div>
-
             </div>
-        </section>
 
-    </main>
-</div>
+            <!-- TEACHER DETAILS -->
+            <section id="teacherDetails" class="card border-0 shadow-sm d-none">
 
-<script src="js/language.js"></script>
-<script src="js/vice-principal-teachers.js"></script>
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between
+                            align-items-center mb-3">
+
+                        <h5 id="selectedTeacherName" class="fw-semibold mb-0">
+                            —
+                        </h5>
+
+                        <button type="button" id="closeTeacherDetails" class="btn btn-outline-secondary btn-sm"
+                            data-i18n="vpClose">
+                            Закрыть
+                        </button>
+                    </div>
+
+                    <div id="teacherDetailsContent"></div>
+
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="js/language.js"></script>
+    <script src="js/vice-principal-teachers.js"></script>
 
 </body>
+
 </html>
